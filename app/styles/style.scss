@@ -29,7 +29,7 @@ html, body {
 	bottom: 0px;
 	width: 200px;
 	overflow: auto;
-	background-color: #90CAF9;
+	background-color: #e6d5ac;
 	padding: 15px;
 }
 
@@ -39,15 +39,10 @@ html, body {
   left: 200px;
   right: 0px;
   height: 250px;
-  overflow-y: auto;
-	background-color: #6A1B9A;
+  overflow: auto;
+	background-color: #415a20;
 	padding: 15px;
-	display: flex;
-	flex-wrap: wrap;
-}
-
-#effectsContainer > div {
-	margin: 5px;
+	color: #bdbdbd;
 }
 
 #loopsContainer {
@@ -57,6 +52,5 @@ html, body {
 	top: 0px;
 	position: absolute;
 	overflow: auto;
-	background-color: #EDE7F6;
-	color: white;
+	background-color: white;
 }
