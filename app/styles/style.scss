@@ -18,7 +18,7 @@ html, body {
 }
 
 .directoryTreeItem {
-	background-color: $shadeLight;
+	background-color: $dirTreeBg;
 	border-radius: 2px;
 	padding: 5px;
 	margin: 2px;
@@ -32,7 +32,7 @@ html, body {
 	width: 200px;
 	overflow: auto;
 	background-color: $dirTreeBg;
-	padding: 15px;
+	padding: 15px;;
 }
 
 #effectsContainer {
@@ -55,4 +55,5 @@ html, body {
 	position: absolute;
 	overflow: auto;
 	background-color: $light;
+	padding: 15px;
 }
