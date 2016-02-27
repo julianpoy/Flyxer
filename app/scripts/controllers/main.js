@@ -7,20 +7,34 @@
   function MainController($scope) {
 
       //Put logic here
+      var remote = require('remote');
+      var dialog = remote.require('dialog');
+
+      //Our file
+      $scope.trackOneFileUrl;
+
+      //Open a file
+      $scope.openFile = function() {
+          dialog.showOpenDialog({ properties: [ 'openFile']}, function(fileName) {
+
+              //Save our file url
+              $scope.trackOneFileUrl = fileName;
+          });
+      }
 
       //Play a sound
       $scope.playSong = function() {
-          var bell = new Wad({
-              source : 'file:///home/aaron/Music/test/song1.mp3',
+
+          $scope.trackOne = new Wad({
+              source : 'file://' + $scope.trackOneFileUrl,
               env : { hold : 100000000 },
               delay   : {
-                delayTime : .5,  // Time in seconds between each delayed playback.
+                delayTime : 0,  // Time in seconds between each delayed playback.
                 wet       : .25, // Relative volume change between the original sound and the first delayed playback.
                 feedback  : .25, // Relative volume change between each delayed playback and the next.
             }
           });
-            bell.play();
-            console.log(bell);
+            $scope.trackOne.play();
       }
   }
 })();
