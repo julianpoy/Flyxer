@@ -1,0 +1,83 @@
+{
+  "name": "electron-angular-boilerplate",
+  "version": "1.5.0",
+  "description": "A basic electron app using AngularJS and Skeleton CSS with ES6 support",
+  "engines": {
+    "node": "4.2.x"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "gulp && electron .",
+    "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/jspm/jspm.js install",
+    "debug": "node-inspector && electron --debug=5858 && ",
+    "test": "./node_modules/jest-cli/bin/jest.js --verbose && ./node_modules/karma/bin/karma start",
+    "test-angularjs": "karma start --auto-watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Stephn-R/Electron-Boilerplate.git"
+  },
+  "keywords": [
+    "electron",
+    "angular",
+    "boilerplate",
+    "desktop",
+    "applications",
+    "web"
+  ],
+  "author": "steprodriguez10@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Stephn-R/Electron-Boilerplate/issues"
+  },
+  "homepage": "https://github.com/Stephn-R/Electron-Boilerplate",
+  "devDependencies": {
+    "babel": "6.3.26",
+    "babel-core": "6.4.5",
+    "babel-jest": "6.0.1",
+    "bower": "1.7.2",
+    "del": "2.2.0",
+    "electron-packager": "5.2.1",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "3.1.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-istanbul": "^0.10.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-util": "^3.0.5",
+    "jest-cli": "0.8.2",
+    "jspm": "0.16.24",
+    "karma": "0.13.19",
+    "karma-coverage": "0.5.3",
+    "karma-jasmine": "^0.3.6",
+    "karma-mocha-reporter": "^1.0.2",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "lodash": "^3.9.3",
+    "phantomjs": "^1.9.17",
+    "wiredep": "3.0.0"
+  },
+  "dependencies": {
+    "jquery": "^2.1.4"
+  },
+  "jspm": {
+    "directories": {},
+    "dependencies": {},
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.1.13",
+      "babel-runtime": "npm:babel-runtime@^5.1.13",
+      "core-js": "npm:core-js@^0.9.4"
+    }
+  },
+  "jest": {
+    "collectCoverage": true,
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testPathIgnorePatterns": [
+      "__tests__/app/",
+      "/node_modules/"
+    ]
+  }
+}
