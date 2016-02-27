@@ -64,7 +64,7 @@
                 },
                 reverb  : {
                     wet     : 0,  // Volume of the reverberations.
-                    impulse : '../reverb/impulse.wav' // A URL for an impulse response file, if you do not want to use the default impulse response.
+                    impulse : '../sounds/impulse.wav' // A URL for an impulse response file, if you do not want to use the default impulse response.
                 },
                 filter  : {
                       type      : 'lowpass', // What type of filter is applied.
@@ -84,14 +84,18 @@
 
           console.log($scope.masterVolume);
 
-          $scope.trackOne.setVolume(parseInt($scope.masterVolume) / 100);
+          for(var i=0;i<$scope.tracks.length;i++){
+            if($scope.tracks[i].playing) $scope.tracks[i].player.setVolume(parseInt($scope.masterVolume) / 100);
+          }
       }
 
       //Speed
       $scope.masterSpeed = 100;
       $scope.setSpeed = function() {
 
-          $scope.trackOne.soundSource.playbackRate.value = parseInt($scope.masterSpeed) / 100;
+        for(var i=0;i<$scope.tracks.length;i++){
+          if($scope.tracks[i].playing) $scope.tracks[i].player.soundSource.playbackRate.value = parseInt($scope.masterSpeed) / 100;
+        }
       }
 
 
@@ -102,41 +106,50 @@
           var time = 1.5;
           var delay = parseInt($scope.masterDelay) / 100;
 
-          //Set the value
-          $scope.trackOne.delay.delayTime = time;
-          $scope.trackOne.delay.wet = delay;
-          $scope.trackOne.delay.feedback = delay;
+          for(var i=0;i<$scope.tracks.length;i++){
+            if($scope.tracks[i].playing){
+              //Set the value
+              $scope.tracks[i].player.delay.delayTime = time;
+              $scope.tracks[i].player.delay.wet = delay;
+              $scope.tracks[i].player.delay.feedback = delay;
 
-          //Set the node's value
-          $scope.trackOne.delay.delayNode.delayNode.delayTime.value = time;
+              //Set the node's value
+              $scope.tracks[i].player.delay.delayNode.delayNode.delayTime.value = time;
 
-          $scope.trackOne.delay.delayNode.feedbackNode.gain.value = delay;
-          $scope.trackOne.delay.delayNode.wetNode.gain.value = delay;
+              $scope.tracks[i].player.delay.delayNode.feedbackNode.gain.value = delay;
+              $scope.tracks[i].player.delay.delayNode.wetNode.gain.value = delay;
+            }
+          }
       }
 
       //Reverb
       $scope.masterReverb = 0;
       $scope.setReverb = function() {
 
-          //Set the value
-          $scope.trackOne.reverb.wet = parseInt($scope.masterReverb) / 100;
+        for(var i=0;i<$scope.tracks.length;i++){
+          if($scope.tracks[i].playing){
+            //Set the value
+            $scope.tracks[i].player.reverb.wet = parseInt($scope.masterReverb) / 100;
 
-          //Set the node's value
-          $scope.trackOne.reverb.node.wet.gain.value = parseInt($scope.masterReverb) / 100;
-
+            //Set the node's value
+            $scope.tracks[i].player.reverb.node.wet.gain.value = parseInt($scope.masterReverb) / 100;
+          }
+        }
       }
 
       //Lowpass filter
       $scope.masterLowPass = 5000;
       $scope.setLowPass = function() {
 
-          //Set the value
-          $scope.trackOne.filter[0].frequency = $scope.masterLowPass;
+        for(var i=0;i<$scope.tracks.length;i++){
+          if($scope.tracks[i].playing){
+            //Set the value
+            $scope.tracks[i].player.filter[0].frequency = $scope.masterLowPass;
 
-          //Set the node's value
-          $scope.trackOne.filter[0].node.frequency.value = $scope.masterLowPass;
+            //Set the node's value
+            $scope.tracks[i].player.filter[0].node.frequency.value = $scope.masterLowPass;
+          }
+        }
       }
-
-
   }
 })();
