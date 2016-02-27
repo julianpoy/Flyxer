@@ -102,9 +102,31 @@
                 }
             });
             $scope.tracks[index].player.play();
+            $scope.tracks[index].currentTime = 0;
             $scope.tracks[index].playing = true;
-            console.log($scope.tracks[index]);
           }
+      }
+
+      function calculateTime(){
+        for(var i=0;i<$scope.tracks.length;i++){
+          if(!$scope.tracks[i].playing || !$scope.tracks[i].player || !$scope.tracks[i].player.decodedBuffer) continue;
+          var current = $scope.tracks[i].currentTime + $scope.masterSpeed/100;
+          var total = $scope.tracks[i].player.decodedBuffer.duration;
+
+          var remainingTime = (total - current);
+
+          if(remainingTime > 0){
+            $scope.tracks[i].timeRemaining = Math.round(remainingTime);
+            $scope.tracks[i].currentTime =  Math.round(current);
+          } else {
+            $scope.tracks[i].timeRemaining = total;
+            $scope.tracks[i].currentTime =  $scope.masterSpeed;
+          }
+        }
+        setTimeout(function(){
+          $scope.$apply();
+          calculateTime();
+        }, 1000);
       }
 
       //Effects
@@ -181,5 +203,8 @@
           }
         }
       }
+
+      //Start the timer thread
+      calculateTime();
   }
 })();

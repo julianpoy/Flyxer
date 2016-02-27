@@ -40,7 +40,7 @@
 
       <div id="loopsContainer">
 
-        <div ng-repeat="track in tracks"><button ng-class="{trackPlaying: track.playing}" ng-click="toggleTrack($index)">{{track.title}}</button></div>
+        <div ng-repeat="track in tracks"><button ng-class="{trackPlaying: track.playing}" ng-click="toggleTrack($index)">{{track.title}} - {{track.timeRemaining}}</button></div>
 
       </div>
 
