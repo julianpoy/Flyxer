@@ -21,7 +21,7 @@ html, body {
 	left: 0px;
 	bottom: 0px;
 	width: 200px;
-	overflow: scroll;
+	overflow: auto;
 }
 
 #effectsContainer {
@@ -30,7 +30,7 @@ html, body {
   left: 200px;
   right: 0px;
   height: 250px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 #loopsContainer {
@@ -39,5 +39,5 @@ html, body {
 	bottom: 250px;
 	top: 0px;
 	position: absolute;
-	overflow: scroll;
+	overflow: auto;
 }
