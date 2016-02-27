@@ -14,7 +14,7 @@
 
       <button ng-click = "openFile()">Add File/Folder</button>
 
-      <div ng-repeat="track in tracks"><button ng-class="{trackPlaying: track.playing}" ng-click = "playSong($index)">{{track.title}}</button></div>
+      <div ng-repeat="track in tracks"><button ng-class="{trackPlaying: track.playing}" ng-click="toggleTrack($index)">{{track.title}}</button></div>
 
       <h3>reverb</h3>
       <input type="range" id="myRange" value="90">
