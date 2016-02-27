@@ -12,11 +12,9 @@
 
       <h1>Looped</h1>
 
-       <h3>Enter Audio File here</h3>
-      <button ng-click = "openFile()">InsertFile</button>
-      {{trackOneFileUrl}}
+      <button ng-click = "openFile()">Add File/Folder</button>
 
-      <div><button ng-click = "playSong()">Play song</button></div>
+      <div ng-repeat="track in tracks"><button ng-class="{trackPlaying: track.playing}" ng-click = "playSong($index)">{{track.title}}</button></div>
 
       <h3>reverb</h3>
       <input type="range" id="myRange" value="90">
