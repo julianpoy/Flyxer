@@ -36,12 +36,31 @@ html, body {
 }
 
 #effectsContainer {
+
+
+	.sliderFlex {
+
+		display: flex;
+		width: 75%;
+		height: 200px !important;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		.flexItem {
+
+			margin-left: 15px;
+			margin-right: 15px;
+			margin-top: 15px;
+			margin-bottom: 15px;
+		}
+	}
+
 	position: absolute;
-  bottom: 0px;
-  left: 200px;
-  right: 0px;
-  height: 250px;
-  overflow: auto;
+  	bottom: 0px;
+  	left: 200px;
+  	right: 0px;
+  	height: 250px;
+  	overflow: auto;
 	background-color: $effectsBg;
 	padding: 15px;
 	color: $dark;
