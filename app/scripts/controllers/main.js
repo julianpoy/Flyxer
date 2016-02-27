@@ -69,7 +69,7 @@
         }
         fileName = $scope.directoryRoot + slash + fileName;
         var title = path.basename(fileName);
-        $scope.tracks.push({"uri": fileName, "title": title});
+        $scope.tracks.push({"uri": fileName, "title": title, "playbackSpeed": 100});
       }
 
       //Play/stop a track
@@ -103,6 +103,7 @@
             });
             $scope.tracks[index].player.play();
             $scope.tracks[index].currentTime = 0;
+            $scope.tracks[index].playbackSpeed = 100;
             $scope.tracks[index].playing = true;
           }
       }
@@ -110,7 +111,7 @@
       function calculateTime(){
         for(var i=0;i<$scope.tracks.length;i++){
           if(!$scope.tracks[i].playing || !$scope.tracks[i].player || !$scope.tracks[i].player.decodedBuffer) continue;
-          var current = $scope.tracks[i].currentTime + $scope.masterSpeed/100;
+          var current = $scope.tracks[i].currentTime + $scope.tracks[i].playbackSpeed/100;
           var total = $scope.tracks[i].player.decodedBuffer.duration;
 
           var remainingTime = (total - current);
@@ -120,7 +121,7 @@
             $scope.tracks[i].currentTime =  Math.round(current);
           } else {
             $scope.tracks[i].timeRemaining = total;
-            $scope.tracks[i].currentTime =  $scope.masterSpeed;
+            $scope.tracks[i].currentTime =  $scope.tracks[i].playbackSpeed;
           }
         }
         setTimeout(function(){
@@ -137,8 +138,14 @@
           for(var i=0;i<$scope.tracks.length;i++){
             if($scope.tracks[i].playing) {
                 $scope.tracks[i].player.nodes[3].output.gain.value = (parseInt($scope.masterVolume) / 100);
+                $scope.tracks[i].playbackVolume = $scope.masterVolume;
             }
           }
+      }
+
+      //Volume
+      $scope.setTrackVolume = function(index) {
+          if($scope.tracks[index].playing) $scope.tracks[index].player.nodes[3].output.gain.value = (parseInt($scope.tracks[index].playbackVolume) / 100);
       }
 
       //Speed
@@ -146,8 +153,16 @@
       $scope.setSpeed = function() {
 
         for(var i=0;i<$scope.tracks.length;i++){
-          if($scope.tracks[i].playing) $scope.tracks[i].player.soundSource.playbackRate.value = parseInt($scope.masterSpeed) / 100;
+          if($scope.tracks[i].playing) {
+            $scope.tracks[i].player.soundSource.playbackRate.value = parseInt($scope.masterSpeed) / 100;
+            $scope.tracks[i].playbackSpeed = $scope.masterSpeed;
+          }
         }
+      }
+
+      //Speed
+      $scope.setTrackSpeed = function(index) {
+          if($scope.tracks[index].playing) $scope.tracks[index].player.soundSource.playbackRate.value = parseInt($scope.tracks[index].playbackSpeed) / 100;
       }
 
 
