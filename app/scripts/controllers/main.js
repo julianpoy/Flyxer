@@ -13,12 +13,21 @@
       //Our file
       $scope.trackOneFileUrl;
 
+      $scope.tracks = [];
+
       //Open a file
       $scope.openFile = function() {
           dialog.showOpenDialog({ properties: [ 'openFile']}, function(fileName) {
-
-              //Save our file url
-              $scope.trackOneFileUrl = fileName;
+              //Check if fileName is a file or directory.
+              var isFile = str.match(/.*\..../g);
+              if(isFile){
+                $scope.tracks.push(fileName);
+              } else {
+                var dir = fs.readdirSync(path);
+                for(var i=0;i<dir.length;i++){
+                  $scope.tracks.push(dir[i]);
+                }
+              }
           });
       }
 
