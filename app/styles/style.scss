@@ -6,9 +6,57 @@
 html, body {
 	width: 100%;
 	height: 100%;
+	padding: 0;
+	margin: 0;
 	background: #FEFEFE;
 }
 
 .trackPlaying {
 	background-color: blue;
+}
+
+.directoryTreeItem {
+	background-color: lightgrey;
+	border-radius: 2px;
+	padding: 5px;
+	margin: 2px;
+}
+
+#directoryTreeContainer {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	width: 200px;
+	overflow: auto;
+	background-color: #90CAF9;
+	padding: 15px;
+}
+
+#effectsContainer {
+	position: absolute;
+  bottom: 0px;
+  left: 200px;
+  right: 0px;
+  height: 250px;
+  overflow-y: auto;
+	background-color: #6A1B9A;
+	padding: 15px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#effectsContainer > div {
+	margin: 5px;
+}
+
+#loopsContainer {
+	left: 200px;
+	right: 0px;
+	bottom: 250px;
+	top: 0px;
+	position: absolute;
+	overflow: auto;
+	background-color: #EDE7F6;
+	color: white;
 }

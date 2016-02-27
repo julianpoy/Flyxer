@@ -8,6 +8,7 @@
 
       var path = require('path');
       var fs = require('fs');
+      var dirTree = require('directory-tree');
 
       //Put logic here
       var remote = require('remote');
@@ -16,9 +17,12 @@
       //Our files
       $scope.tracks = [];
 
+      $scope.directory = {};
+      $scope.directoryRoot = "";
+
       //Open a file
       $scope.openFile = function() {
-          dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory' ]}, function(fileName) {
+          dialog.showOpenDialog({ properties: [ 'openFile' ]}, function(fileName) {
               fileName = String(fileName);
               //Check if fileName is a file or directory.
               var isFile = fileName.match(/.*\..../g);
@@ -41,6 +45,31 @@
               }
               $scope.$apply();
           });
+      }
+
+      $scope.openDir = function(){
+        dialog.showOpenDialog({ properties: [ 'openDirectory' ]}, function(fileName) {
+          $scope.directoryRoot = fileName[0];
+          $scope.directory = dirTree.directoryTree(fileName[0]);
+          console.log($scope.directory);
+          $scope.$apply();
+          setTimeout(function(){
+            $scope.$apply();
+          }, 600);
+        });
+      }
+
+      $scope.addFile = function(fileName){
+        var forwardSlash = $scope.directoryRoot.match(/\//g);
+        var slash;
+        if(forwardSlash){
+          slash = "/";
+        } else {
+          slash = "\\";
+        }
+        fileName = $scope.directoryRoot + slash + fileName;
+        var title = path.basename(fileName);
+        $scope.tracks.push({"uri": fileName, "title": title});
       }
 
       //Play/stop a track
