@@ -39,9 +39,15 @@ html, body {
   left: 200px;
   right: 0px;
   height: 250px;
-  overflow: auto;
+  overflow-y: auto;
 	background-color: #6A1B9A;
 	padding: 15px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#effectsContainer > div {
+	margin: 5px;
 }
 
 #loopsContainer {
