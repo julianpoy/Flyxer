@@ -10,7 +10,15 @@
   </head>
   <body ng-controller="MainController">
 
-    <h1>Electron Boilerplate is alive!</h1>
+      <h1>Looped</h1>
+
+      <div><button ng-click = "playSong()">Play song</button></div>
+
+      <h3>reverb</h3>
+      <input type="range" id="myRange" value="90">
+
+      <h3>delay</h3>
+      <input type="range" id="myRange" value="90">
 
     <!-- REQUIRED -->
     <script src="../../jspm_packages/system.js"></script>
@@ -19,6 +27,7 @@
     <script src="../../dist/vendor/angular/angular.js"></script>
     <script src="../../dist/vendor/angular-mocks/angular-mocks.js"></script>
     <!-- endbower -->
+    <script src="../../dist/vendor/Wad/build/wad.min.js"></script>
     <script src="../scripts/controllers/main.js"></script>
   </body>
 </html>
