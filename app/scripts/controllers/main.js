@@ -116,11 +116,11 @@
           var remainingTime = (total - current);
 
           if(remainingTime > 0){
-            $scope.tracks[i].timeRemaining = remainingTime;
-            $scope.tracks[i].currentTime =  current;
+            $scope.tracks[i].timeRemaining = Math.round(remainingTime);
+            $scope.tracks[i].currentTime =  Math.round(current);
           } else {
             $scope.tracks[i].timeRemaining = total;
-            $scope.tracks[i].currentTime =  0;
+            $scope.tracks[i].currentTime =  $scope.masterSpeed;
           }
         }
         setTimeout(function(){
