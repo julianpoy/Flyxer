@@ -11,27 +11,61 @@
   <body ng-controller="MainController">
 
       <div id="directoryTreeContainer">
-        File menu
+
+        <h4 class = "fileTitle">File menu</h4>
 
         <button ng-click = "openDir()">Open Folder</button>
 
         <!-- Layer 1 -->
         <div ng-repeat="layer1 in directory.children">
-          <div class="directoryTreeItem" ng-if="layer1.type == 'file'" ng-click="addFile(layer1.path)">{{layer1.name}}p</div>
 
-          <div class="directoryTreeItem" ng-if="layer1.type == 'directory'" ng-click="layer1.expand = !layer1.expand">{{layer1.name}} ></div>
+              <div class="directoryTreeItem"
+              ng-if="layer1.type == 'file'"
+              ng-click="addFile(layer1.path)">
+                {{layer1.name}}
+              </div>
+
+              <div class="directoryTreeItem"
+              ng-if="layer1.type == 'directory'"
+              ng-click="layer1.expand = !layer1.expand">
+                << {{layer1.name}} >>
+              </div>
+
           <!-- Layer 2 -->
-          <div ng-if="layer1.expand" ng-repeat="layer2 in layer1.children" style="margin-left: 5px;">
-            <div class="directoryTreeItem" ng-if="layer2.type == 'file'" ng-click="addFile(layer2.path)">{{layer2.name}}</div>
+          <div
+          ng-if="layer1.expand"
+          ng-repeat="layer2 in layer1.children"
+          style="margin-left: 15px;">
 
-            <div class="directoryTreeItem" ng-if="layer2.type == 'directory'" ng-click="layer2.expand = !layer2.expand">{{layer2.name}} ></div>
-            <!-- Layer 3 -->
-            <div ng-if="layer2.expand" ng-repeat="layer3 in layer2.children" style="margin-left: 5px;">
-              <div class="directoryTreeItem" ng-if="layer3.type == 'file'" ng-click="addFile(layer3.path)">{{layer3.name}}</div>
+                <div class="directoryTreeItem"
+                ng-if="layer2.type == 'file'"
+                ng-click="addFile(layer2.path)">
+                    {{layer2.name}}
+                </div>
 
-              <div class="directoryTreeItem" ng-if="layer3.type == 'directory'">{{layer3.name}} - Cannot be expanded (too deeply nested)</div>
+                <div class="directoryTreeItem"
+                ng-if="layer2.type == 'directory'"
+                ng-click="layer2.expand = !layer2.expand">
+                    << {{layer2.name}} >>
+                </div>
 
-            </div>
+
+                <!-- Layer 3 -->
+                <div ng-if="layer2.expand"
+                ng-repeat="layer3 in layer2.children"
+                style="margin-left: 30px;">
+                      <div class="directoryTreeItem"
+                      ng-if="layer3.type == 'file'"
+                      ng-click="addFile(layer3.path)">
+                        {{layer3.name}}
+                      </div>
+
+                      <div class="directoryTreeItem"
+                      ng-if="layer3.type == 'directory'">
+                        {{layer3.name}} - Cannot be expanded (too deeply nested)
+                      </div>
+
+                </div>
 
           </div>
         </div>
@@ -68,51 +102,65 @@
       <!-- Our effects -->
       <div id="effectsContainer">
 
-          <div><h6>Master Volume</h6>
-                <input type="range"
-                value = "100"
-                min="0"
-                max="100"
-                ng-model="masterVolume"
-                ng-change="setVolume()">
-                </input>
-              </div>
+          <div class = "sliderFlex">
 
-          <div><h6>Playback Speed</h6>
-                <input type="range"
-                value = "100"
-                min="0"
-                max="200"
-                ng-model="masterSpeed"
-                ng-change="setSpeed()">
-                </input>
-              </div>
-
-        <div><h6>Delay</h6>
-              <input type="range"
-              min="0"
-              max="100"
-              ng-model="masterDelay"
-              ng-change="setDelay()">
-              </input>
+              <div class = "flexItem">
+                  <h5>Master Volume</h5>
+                  <h6>{{masterVolume}}</h6>
+                    <input type="range"
+                    value = "100"
+                    min="0"
+                    max="100"
+                    ng-model="masterVolume"
+                    ng-change="setVolume()">
+                    </input>
             </div>
 
-      <div><h6>Reverb</h6>
-            <input type="range"
-            min="0"
-            max="100"
-            ng-model="masterReverb"
-            ng-change="setReverb()">
-            </input>
+              <div class = "flexItem">
+                  <h5>Playback Speed</h5>
+                  <h6>x{{masterSpeed / 100}}</h6>
+                    <input type="range"
+                    value = "100"
+                    min="0"
+                    max="200"
+                    ng-model="masterSpeed"
+                    ng-change="setSpeed()">
+                    </input>
+            </div>
+
+            <div class = "flexItem">
+                <h5>Delay</h5>
+                <h6>Gain: {{masterDelay}}</h6>
+                  <input type="range"
+                  min="0"
+                  max="100"
+                  ng-model="masterDelay"
+                  ng-change="setDelay()">
+                  </input>
+           </div>
+
+          <div class = "flexItem">
+              <h5>Reverb</h5>
+              <h6>Gain: {{masterReverb}}</h6>
+                <input type="range"
+                min="0"
+                max="100"
+                ng-model="masterReverb"
+                ng-change="setReverb()">
+                </input>
           </div>
 
-    <div><h6>Lowpass Filter</h6>
-          <input type="range"
-          min="0"
-          max="4000"
-          ng-model="masterLowPass"
-          ng-change="setLowPass()">
-          </input>
+        <div class = "flexItem">
+            <h5>Lowpass Filter</h5>
+            <h6>Frequency: {{masterLowPass}}</h6>
+              <input type="range"
+              min="0"
+              max="4000"
+              ng-model="masterLowPass"
+              ng-change="setLowPass()">
+              </input>
+        </div>
+
         </div>
 
       </div>
