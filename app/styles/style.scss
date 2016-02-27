@@ -3,20 +3,22 @@
 @import 'includes/nav';
 @import 'includes/footer';
 
+@import 'colors';
+
 html, body {
 	width: 100%;
 	height: 100%;
 	padding: 0;
 	margin: 0;
-	background: #FEFEFE;
+	background: $light;
 }
 
 .trackPlaying {
-	background-color: blue;
+	background-color: $trackPlaying;
 }
 
 .directoryTreeItem {
-	background-color: lightgrey;
+	background-color: $shadeLight;
 	border-radius: 2px;
 	padding: 5px;
 	margin: 2px;
@@ -29,7 +31,7 @@ html, body {
 	bottom: 0px;
 	width: 200px;
 	overflow: auto;
-	background-color: #e6d5ac;
+	background-color: $dirTreeBg;
 	padding: 15px;
 }
 
@@ -40,9 +42,9 @@ html, body {
   right: 0px;
   height: 250px;
   overflow: auto;
-	background-color: #415a20;
+	background-color: $effectsBg;
 	padding: 15px;
-	color: #bdbdbd;
+	color: $dark;
 }
 
 #loopsContainer {
@@ -52,5 +54,5 @@ html, body {
 	top: 0px;
 	position: absolute;
 	overflow: auto;
-	background-color: white;
+	background-color: $light;
 }
