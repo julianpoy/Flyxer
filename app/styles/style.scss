@@ -14,10 +14,6 @@ html, body {
 	background: $light;
 }
 
-.trackPlaying {
-	background-color: $trackPlaying;
-}
-
 .directoryTreeItem {
 
 	background-color: $dirTreeBg;
@@ -108,4 +104,19 @@ html, body {
 	overflow: auto;
 	background-color: $light;
 	padding: 15px;
+}
+
+.card {
+  padding:1.5rem;
+  box-shadow:0 1px 2px $dark;
+  background-color: white;
+  margin:0 1rem 1rem;
+  border-radius:3px;
+  user-select:none;
+  transform-origin:top left;
+  width: 200px;
+}
+
+.trackPlaying {
+	background-color: $trackPlaying;
 }
