@@ -75,33 +75,42 @@
       <div id="loopsContainer">
 
         <div ng-repeat="track in tracks">
-            
+
           <div
           class = "card"
+          ng-mouseenter = "toggleTrackFader($index)"
+          ng-mouseleave = "toggleTrackFader()"
           ng-class="{trackPlaying: track.playing}"
           ng-click="toggleTrack($index)">
-          {{track.title}} - {{track.timeRemaining}}
-          </div>
 
+              <h5>{{track.title}}<h5>
 
-          <div ng-if="track.playing"><h6>Track volume</h6>
-                <input type="range"
-                value = "100"
-                min="0"
-                max="100"
-                ng-model="tracks[$index].playbackVolume"
-                ng-change="setTrackVolume($index)">
-                </input>
-          </div>
+              <h6
+              ng-if="track.playing">
+              Time Remaining: {{track.timeRemaining}}
+              </h6>
 
-          <div ng-if="track.playing"><h6>Playback Speed</h6>
-                <input type="range"
-                value = "100"
-                min="0"
-                max="200"
-                ng-model="tracks[$index].playbackSpeed"
-                ng-change="setTrackSpeed($index)">
-                </input>
+              <div ng-if="track.playing &&
+              trackFader == $index"><h6>Track volume</h6>
+                    <input type="range"
+                    value = "100"
+                    min="0"
+                    max="100"
+                    ng-model="tracks[$index].playbackVolume"
+                    ng-change="setTrackVolume($index)">
+                    </input>
+              </div>
+
+              <div ng-if="track.playing &&
+              trackFader == $index"><h6>Playback Speed</h6>
+                    <input type="range"
+                    value = "100"
+                    min="0"
+                    max="200"
+                    ng-model="tracks[$index].playbackSpeed"
+                    ng-change="setTrackSpeed($index)">
+                    </input>
+              </div>
           </div>
         </div>
 

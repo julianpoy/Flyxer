@@ -130,6 +130,28 @@
         }, 1000);
       }
 
+      //Function to show individula track effects
+      $scope.trackFader = -1;
+      $scope.toggleTrackFader = function(index) {
+
+          console.log(index);
+
+          if(index != undefined) {
+
+              console.log("Sup");
+
+              //Set the index to our scope variable to show ng-ifs
+              $scope.trackFader = index;
+          }
+          else {
+
+              //Hide the faders
+              $scope.trackFader = -1;
+          }
+
+          console.log("CURRENT: " + $scope.trackFader);
+      }
+
       //Effects
       //Volume
       $scope.masterVolume = 100;
