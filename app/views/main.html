@@ -21,17 +21,17 @@
 
           <div class="directoryTreeItem" ng-if="layer1.type == 'directory'" ng-click="layer1.expand = !layer1.expand">{{layer1.name}} ></div>
           <!-- Layer 2 -->
-          <div ng-if="layer1.expand" ng-repeat="layer2 in layer1.children">
-            <div class="directoryTreeItem" ng-if="layer2.type == 'file'" ng-click="addFile(layer2.path)">{{layer1.name}}</div>
+          <div ng-if="layer1.expand" ng-repeat="layer2 in layer1.children" style="margin-left: 5px;">
+            <div class="directoryTreeItem" ng-if="layer2.type == 'file'" ng-click="addFile(layer2.path)">{{layer2.name}}</div>
 
-            <div class="directoryTreeItem" ng-if="layer2.type == 'directory'" ng-click="layer2.expand = !layer2.expand">{{layer1.name}} ></div>
+            <div class="directoryTreeItem" ng-if="layer2.type == 'directory'" ng-click="layer2.expand = !layer2.expand">{{layer2.name}} ></div>
             <!-- Layer 3 -->
-            <div ng-if="layer2.expand" ng-repeat="layer3 in layer2.children">
+            <div ng-if="layer2.expand" ng-repeat="layer3 in layer2.children" style="margin-left: 5px;">
               <div class="directoryTreeItem" ng-if="layer3.type == 'file'" ng-click="addFile(layer3.path)">{{layer3.name}}</div>
 
               <div class="directoryTreeItem" ng-if="layer3.type == 'directory'">{{layer3.name}} - Cannot be expanded (too deeply nested)</div>
 
-            </div>`
+            </div>
 
           </div>
         </div>
