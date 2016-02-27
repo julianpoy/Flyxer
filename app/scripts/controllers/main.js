@@ -16,9 +16,11 @@
       //Our files
       $scope.tracks = [];
 
+      $scope.directory = {};
+
       //Open a file
       $scope.openFile = function() {
-          dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory' ]}, function(fileName) {
+          dialog.showOpenDialog({ properties: [ 'openFile' ]}, function(fileName) {
               fileName = String(fileName);
               //Check if fileName is a file or directory.
               var isFile = fileName.match(/.*\..../g);
@@ -41,6 +43,12 @@
               }
               $scope.$apply();
           });
+      }
+
+      $scope.openDir = function(){
+        dialog.showOpenDialog({ properties: [ 'openDirectory' ]}, function(fileName) {
+          $scope.directory = directoryTree(fileName);
+        });
       }
 
       //Play/stop a track

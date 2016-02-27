@@ -10,15 +10,22 @@
   </head>
   <body ng-controller="MainController">
 
-      <h1>Looped</h1>
+      <div id="directoryTreeContainer">
+        File menu
 
-      <button ng-click = "openFile()">Add File/Folder</button>
+        <button ng-click = "openFolder()">Open Folder</button>
 
-      <div ng-repeat="track in tracks"><button ng-class="{trackPlaying: track.playing}" ng-click="toggleTrack($index)">{{track.title}}</button></div>
+      </div>
+
+      <div id="loopsContainer">
+
+        <div ng-repeat="track in tracks"><button ng-class="{trackPlaying: track.playing}" ng-click="toggleTrack($index)">{{track.title}}</button></div>
+
+      </div>
 
 
       <!-- Our effects -->
-      <div class = "effectsContainer">
+      <div id="effectsContainer">
 
           <h3>Master Volume</h3>
                 <input type="range"
