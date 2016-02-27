@@ -36,12 +36,12 @@
                     feedback  : 0, // Relative volume change between each delayed playback and the next.
               },
               reverb  : {
-                  wet     : 0,                                            // Volume of the reverberations.
-                  impulse : '../../reverb/impulse.wav' // A URL for an impulse response file, if you do not want to use the default impulse response.
+                  wet     : 0,  // Volume of the reverberations.
+                  impulse : '../reverb/impulse.wav' // A URL for an impulse response file, if you do not want to use the default impulse response.
               },
               filter  : {
                     type      : 'lowpass', // What type of filter is applied.
-                    frequency : 600,       // The frequency, in hertz, to which the filter is applied.
+                    frequency : 5000,       // The frequency, in hertz, to which the filter is applied.
                     q         : 1,         // Q-factor.  No one knows what this does. The default value is 1. Sensible values are from 0 to 10.
               },
           });
@@ -74,18 +74,24 @@
 
 
       //Effects
-      $scope.masterVolume = 1.0;
+      //Volume
+      $scope.masterVolume = 100;
       $scope.setVolume = function() {
 
-          $scope.trackOne.volume = $scope.masterVolume;
+          console.log($scope.masterVolume);
+
+          $scope.trackOne.setVolume(parseInt($scope.masterVolume) / 100);
       }
 
-      $scope.masterSpeed = 1.0;
+      //Speed
+      $scope.masterSpeed = 100;
       $scope.setSpeed = function() {
 
           $scope.trackOne.soundSource.playbackRate.value = parseInt($scope.masterSpeed) / 100;
       }
 
+
+      //Delay
       $scope.masterDelay = 0;
       $scope.setDelay = function() {
 
@@ -103,6 +109,30 @@
           $scope.trackOne.delay.delayNode.feedbackNode.gain.value = delay;
           $scope.trackOne.delay.delayNode.wetNode.gain.value = delay;
       }
+
+      //Reverb
+      $scope.masterReverb = 0;
+      $scope.setReverb = function() {
+
+          //Set the value
+          $scope.trackOne.reverb.wet = parseInt($scope.masterReverb) / 100;
+
+          //Set the node's value
+          $scope.trackOne.reverb.node.wet.gain.value = parseInt($scope.masterReverb) / 100;
+
+      }
+
+      //Lowpass filter
+      $scope.masterLowPass = 5000;
+      $scope.setLowPass = function() {
+
+          //Set the value
+          $scope.trackOne.filter[0].frequency = $scope.masterLowPass;
+
+          //Set the node's value
+          $scope.trackOne.filter[0].node.frequency.value = $scope.masterLowPass;
+      }
+
 
   }
 })();
