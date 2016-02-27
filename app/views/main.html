@@ -17,19 +17,19 @@
 
         <!-- Layer 1 -->
         <div ng-repeat="layer1 in directory.children">
-          <item ng-if="layer1.type == 'file'" ng-click="addFile(layer1.path)">{{layer1.name}}p</item>
+          <div class="directoryTreeItem" ng-if="layer1.type == 'file'" ng-click="addFile(layer1.path)">{{layer1.name}}p</div>
 
-          <item ng-if="layer1.type == 'directory'" ng-click="layer1.expand = true">{{layer1.name}}</item>
+          <div class="directoryTreeItem" ng-if="layer1.type == 'directory'" ng-click="layer1.expand = !layer1.expand">{{layer1.name}} ></div>
           <!-- Layer 2 -->
           <div ng-if="layer1.expand" ng-repeat="layer2 in layer1.children">
-            <item ng-if="layer2.type == 'file'" ng-click="addFile(layer2.path)">{{layer1.name}}</item>
+            <div class="directoryTreeItem" ng-if="layer2.type == 'file'" ng-click="addFile(layer2.path)">{{layer1.name}}</div>
 
-            <item ng-if="layer2.type == 'directory'" ng-click="layer2.expand = true">{{layer1.name}}</item>
+            <div class="directoryTreeItem" ng-if="layer2.type == 'directory'" ng-click="layer2.expand = !layer2.expand">{{layer1.name}} ></div>
             <!-- Layer 3 -->
             <div ng-if="layer2.expand" ng-repeat="layer3 in layer2.children">
-              <item ng-if="layer3.type == 'file'" ng-click="addFile(layer3.path)">{{layer3.name}}</item>
+              <div class="directoryTreeItem" ng-if="layer3.type == 'file'" ng-click="addFile(layer3.path)">{{layer3.name}}</div>
 
-              <item ng-if="layer3.type == 'directory'">{{layer3.name}} - Cannot be expanded (too deeply nested)</item>
+              <div class="directoryTreeItem" ng-if="layer3.type == 'directory'">{{layer3.name}} - Cannot be expanded (too deeply nested)</div>
 
             </div>`
 

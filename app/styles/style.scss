@@ -15,6 +15,13 @@ html, body {
 	background-color: blue;
 }
 
+.directoryTreeItem {
+	background-color: whitesmoke;
+	border-radius: 2px;
+	padding: 5px;
+	margin: 5px;
+}
+
 #directoryTreeContainer {
 	position: absolute;
 	top: 0px;
