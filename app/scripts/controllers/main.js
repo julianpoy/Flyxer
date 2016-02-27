@@ -8,6 +8,7 @@
 
       var path = require('path');
       var fs = require('fs');
+      var dirTree = require('directory-tree');
 
       //Put logic here
       var remote = require('remote');
@@ -47,7 +48,12 @@
 
       $scope.openDir = function(){
         dialog.showOpenDialog({ properties: [ 'openDirectory' ]}, function(fileName) {
-          $scope.directory = directoryTree(fileName);
+          $scope.directory = dirTree.directoryTree(fileName[0]);
+          console.log($scope.directory);
+          $scope.$apply();
+          setTimeout(function(){
+            $scope.$apply();
+          }, 600);
         });
       }
 

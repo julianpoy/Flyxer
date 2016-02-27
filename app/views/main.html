@@ -13,7 +13,28 @@
       <div id="directoryTreeContainer">
         File menu
 
-        <button ng-click = "openFolder()">Open Folder</button>
+        <button ng-click = "openDir()">Open Folder</button>
+
+        <!-- Layer 1 -->
+        <div ng-repeat="layer1 in directory.children">
+          <item ng-if="layer1.type == 'file'" ng-click="addFile(layer1.path)">{{layer1.name}}p</item>
+
+          <item ng-if="layer1.type == 'directory'" ng-click="layer1.expand = true">{{layer1.name}}</item>
+          <!-- Layer 2 -->
+          <div ng-if="layer1.expand" ng-repeat="layer2 in layer1.children">
+            <item ng-if="layer2.type == 'file'" ng-click="addFile(layer2.path)">{{layer1.name}}</item>
+
+            <item ng-if="layer2.type == 'directory'" ng-click="layer2.expand = true">{{layer1.name}}</item>
+            <!-- Layer 3 -->
+            <div ng-if="layer2.expand" ng-repeat="layer3 in layer2.children">
+              <item ng-if="layer3.type == 'file'" ng-click="addFile(layer3.path)">{{layer3.name}}</item>
+
+              <item ng-if="layer3.type == 'directory'">{{layer3.name}} - Cannot be expanded (too deeply nested)</item>
+
+            </div>`
+
+          </div>
+        </div>
 
       </div>
 
