@@ -138,8 +138,14 @@
           for(var i=0;i<$scope.tracks.length;i++){
             if($scope.tracks[i].playing) {
                 $scope.tracks[i].player.nodes[3].output.gain.value = (parseInt($scope.masterVolume) / 100);
+                $scope.tracks[i].playbackVolume = $scope.masterVolume;
             }
           }
+      }
+
+      //Volume
+      $scope.setTrackVolume = function(index) {
+          if($scope.tracks[index].playing) $scope.tracks[index].player.nodes[3].output.gain.value = (parseInt($scope.tracks[index].playbackVolume) / 100);
       }
 
       //Speed
@@ -147,13 +153,15 @@
       $scope.setSpeed = function() {
 
         for(var i=0;i<$scope.tracks.length;i++){
-          if($scope.tracks[i].playing) $scope.tracks[i].player.soundSource.playbackRate.value = parseInt($scope.masterSpeed) / 100;
+          if($scope.tracks[i].playing) {
+            $scope.tracks[i].player.soundSource.playbackRate.value = parseInt($scope.masterSpeed) / 100;
+            $scope.tracks[i].playbackSpeed = $scope.masterSpeed;
+          }
         }
       }
 
       //Speed
       $scope.setTrackSpeed = function(index) {
-        console.log(index);
           if($scope.tracks[index].playing) $scope.tracks[index].player.soundSource.playbackRate.value = parseInt($scope.tracks[index].playbackSpeed) / 100;
       }
 
