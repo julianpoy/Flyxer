@@ -68,12 +68,13 @@
                 },
                 filter  : {
                       type      : 'lowpass', // What type of filter is applied.
-                      frequency : 5000,       // The frequency, in hertz, to which the filter is applied.
-                      q         : 1,         // Q-factor.  No one knows what this does. The default value is 1. Sensible values are from 0 to 10.
+                      frequency : 4000,       // The frequency, in hertz, to which the filter is applied.
+                      q         : 3,         // Q-factor.  No one knows what this does. The default value is 1. Sensible values are from 0 to 10.
                 }
             });
             $scope.tracks[index].player.play();
             $scope.tracks[index].playing = true;
+            console.log($scope.tracks[index]);
           }
       }
 
@@ -82,10 +83,10 @@
       $scope.masterVolume = 100;
       $scope.setVolume = function() {
 
-          console.log($scope.masterVolume);
-
           for(var i=0;i<$scope.tracks.length;i++){
-            if($scope.tracks[i].playing) $scope.tracks[i].player.setVolume(parseInt($scope.masterVolume) / 100);
+            if($scope.tracks[i].playing) {
+                $scope.tracks[i].player.nodes[3].output.gain.value = (parseInt($scope.masterVolume) / 100);
+            }
           }
       }
 
@@ -138,7 +139,7 @@
       }
 
       //Lowpass filter
-      $scope.masterLowPass = 5000;
+      $scope.masterLowPass = 4000;
       $scope.setLowPass = function() {
 
         for(var i=0;i<$scope.tracks.length;i++){
