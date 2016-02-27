@@ -61,7 +61,8 @@
     "wiredep": "3.0.0"
   },
   "dependencies": {
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "tunajs": "^0.4.2"
   },
   "jspm": {
     "dependencies": {},

@@ -18,11 +18,26 @@
 
       <div><button ng-click = "playSong()">Play song</button></div>
 
-      <h3>reverb</h3>
-      <input type="range" id="myRange" value="90">
 
-      <h3>delay</h3>
-      <input type="range" id="myRange" value="90">
+      <!-- Our effects -->
+      <div class = "effectsContainer">
+
+          <h3>Playback Speed</h3>
+                <input type="range"
+                min="0"
+                max="200"
+                ng-model="masterSpeed"
+                ng-change="setSpeed()">
+                </input>
+
+        <h3>Delay</h3>
+              <input type="range"
+              min="0"
+              max="100"
+              ng-model="masterDelay"
+              ng-change="setDelay()">
+              </input>
+      </div>
 
     <!-- REQUIRED -->
     <script src="../../jspm_packages/system.js"></script>
