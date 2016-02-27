@@ -12,7 +12,10 @@ const sassRoot = 'app/styles';
 const cssRoot = 'dist/css';
 
 const views = 'app/views/**/*.html';
-const viewsRoot = 'app/views/';
+const viewsRoot = 'dist/views/';
+
+const controllers = 'app/scripts/controllers';
+const controllersRoot = 'dist/scripts/controllers/';
 
 function handleError(err) {
   console.log(err.toString());
@@ -49,6 +52,11 @@ gulp.task('build-sass', () => {
     .pipe(gulp.dest(cssRoot));
 });
 
+gulp.task('move-js', () => {
+  return gulp.src(controllers+'/*.js')
+    .pipe(gulp.dest(controllersRoot));
+});
+
 // ############################################################################################
 // ############################################################################################
 
@@ -60,7 +68,7 @@ gulp.task('watch-sass', () => {
 // ############################################################################################
 // ############################################################################################
 
-gulp.task('default', ['build-sass', 'inject-dependencies'], () => {
+gulp.task('default', ['build-sass', 'inject-dependencies', 'move-js'], () => {
   gutil.log('Transposing Sass...');
 });
 

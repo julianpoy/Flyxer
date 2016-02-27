@@ -15,7 +15,7 @@ var mainWindow = null;
 var options = {
 	"debug": true,
 	"version": "1.0.0",
-	"views_dir": "app/views",
+	"views_dir": "dist/views",
 	"root_view": "main.html"
 };
 
