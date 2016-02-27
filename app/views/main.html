@@ -11,7 +11,8 @@
   <body ng-controller="MainController">
 
       <div id="directoryTreeContainer">
-        File menu
+
+        <h4 class = "fileTitle">File menu</h4>
 
         <button ng-click = "openDir()">Open Folder</button>
 
@@ -84,7 +85,8 @@
           <div class = "sliderFlex">
 
               <div class = "flexItem">
-                  <h6>Master Volume</h6>
+                  <h5>Master Volume</h5>
+                  <h6>{{masterVolume}}</h6>
                     <input type="range"
                     value = "100"
                     min="0"
@@ -95,7 +97,8 @@
             </div>
 
               <div class = "flexItem">
-                  <h6>Playback Speed</h6>
+                  <h5>Playback Speed</h5>
+                  <h6>x{{masterSpeed / 100}}</h6>
                     <input type="range"
                     value = "100"
                     min="0"
@@ -106,7 +109,8 @@
             </div>
 
             <div class = "flexItem">
-                <h6>Delay</h6>
+                <h5>Delay</h5>
+                <h6>Gain: {{masterDelay}}</h6>
                   <input type="range"
                   min="0"
                   max="100"
@@ -116,7 +120,8 @@
            </div>
 
           <div class = "flexItem">
-              <h6>Reverb</h6>
+              <h5>Reverb</h5>
+              <h6>Gain: {{masterReverb}}</h6>
                 <input type="range"
                 min="0"
                 max="100"
@@ -126,7 +131,8 @@
           </div>
 
         <div class = "flexItem">
-            <h6>Lowpass Filter</h6>
+            <h5>Lowpass Filter</h5>
+            <h6>Frequency: {{masterLowPass}}</h6>
               <input type="range"
               min="0"
               max="4000"

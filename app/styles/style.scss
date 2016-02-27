@@ -4,6 +4,7 @@
 @import 'includes/footer';
 
 @import 'colors';
+@import 'range';
 
 html, body {
 	width: 100%;
@@ -44,7 +45,14 @@ html, body {
 	width: 200px;
 	overflow: auto;
 	background-color: $dirTreeBg;
-	padding: 15px;;
+	padding: 15px;
+
+	.fileTitle {
+		font-weight: bolder;
+		text-align: center;
+		width: 155px;
+		line-height: inherit;
+	}
 }
 
 #effectsContainer {
@@ -64,6 +72,19 @@ html, body {
 			margin-right: 15px;
 			margin-top: 15px;
 			margin-bottom: 15px;
+
+			h5 {
+				font-weight: bolder;
+				text-align: center;
+				margin-bottom: 5px;
+			}
+
+			h6 {
+				font-weight: bolder;
+				text-align: center;
+				font-size: 16px;
+				margin-bottom: 5px;
+			}
 		}
 	}
 
