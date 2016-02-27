@@ -18,6 +18,7 @@
       $scope.tracks = [];
 
       $scope.directory = {};
+      $scope.directoryRoot = "";
 
       //Open a file
       $scope.openFile = function() {
@@ -48,6 +49,7 @@
 
       $scope.openDir = function(){
         dialog.showOpenDialog({ properties: [ 'openDirectory' ]}, function(fileName) {
+          $scope.directoryRoot = fileName[0];
           $scope.directory = dirTree.directoryTree(fileName[0]);
           console.log($scope.directory);
           $scope.$apply();
@@ -55,6 +57,19 @@
             $scope.$apply();
           }, 600);
         });
+      }
+
+      $scope.addFile = function(fileName){
+        var forwardSlash = $scope.directoryRoot.match(/\//g);
+        var slash;
+        if(forwardSlash){
+          slash = "/";
+        } else {
+          slash = "\\";
+        }
+        fileName = $scope.directoryRoot + slash + fileName;
+        var title = path.basename(fileName);
+        $scope.tracks.push({"uri": fileName, "title": title});
       }
 
       //Play/stop a track
