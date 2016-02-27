@@ -8,11 +8,11 @@ const gulpLoadPlugins = require('gulp-load-plugins');
 let wiredep = require('wiredep').stream;
 
 const plugins = gulpLoadPlugins();
-const sassRoot = 'src/scss';
+const sassRoot = 'app/styles';
 const cssRoot = 'dist/css';
 
-const views = 'views/**/*.html';
-const viewsRoot = 'views/';
+const views = 'app/views/**/*.html';
+const viewsRoot = 'app/views/';
 
 function handleError(err) {
   console.log(err.toString());

@@ -15,8 +15,8 @@ var mainWindow = null;
 var options = {
 	"debug": true,
 	"version": "1.0.0",
-	"views_dir": "views",
-	"root_view": "index.html"
+	"views_dir": "app/views",
+	"root_view": "main.html"
 };
 
 options = _.extend({
