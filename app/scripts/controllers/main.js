@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('Home', []).
+  angular.module('Home', ['ngAnimate']).
   controller('MainController', ['$scope', MainController]);
 
   function MainController($scope) {
@@ -181,8 +181,6 @@ if (process.platform == 'darwin') {
 
 var menu = Menu.buildFromTemplate(template);
 Menu.setApplicationMenu(menu);
-
-
 
       //Our files
       $scope.tracks = [];
