@@ -6,13 +6,183 @@
 
   function MainController($scope) {
 
+      //Our node requirements
       var path = require('path');
       var fs = require('fs');
       var dirTree = require('directory-tree');
-
-      //Put logic here
       var remote = require('remote');
       var dialog = remote.require('dialog');
+
+      //Electron File Menu
+      const electronRemote = require('electron').remote
+      const Menu = electronRemote.Menu;
+      const MenuItem = electronRemote.MenuItem;
+      var template = [
+  {
+    label: 'Edit',
+    submenu: [
+      {
+        label: 'Undo',
+        accelerator: 'CmdOrCtrl+Z',
+        role: 'undo'
+      },
+      {
+        label: 'Redo',
+        accelerator: 'Shift+CmdOrCtrl+Z',
+        role: 'redo'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Cut',
+        accelerator: 'CmdOrCtrl+X',
+        role: 'cut'
+      },
+      {
+        label: 'Copy',
+        accelerator: 'CmdOrCtrl+C',
+        role: 'copy'
+      },
+      {
+        label: 'Paste',
+        accelerator: 'CmdOrCtrl+V',
+        role: 'paste'
+      },
+      {
+        label: 'Select All',
+        accelerator: 'CmdOrCtrl+A',
+        role: 'selectall'
+      },
+    ]
+  },
+  {
+    label: 'View',
+    submenu: [
+      {
+        label: 'Reload',
+        accelerator: 'CmdOrCtrl+R',
+        click: function(item, focusedWindow) {
+          if (focusedWindow)
+            focusedWindow.reload();
+        }
+      },
+      {
+        label: 'Toggle Full Screen',
+        accelerator: (function() {
+          if (process.platform == 'darwin')
+            return 'Ctrl+Command+F';
+          else
+            return 'F11';
+        })(),
+        click: function(item, focusedWindow) {
+          if (focusedWindow)
+            focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
+        }
+      },
+      {
+        label: 'Toggle Developer Tools',
+        accelerator: (function() {
+          if (process.platform == 'darwin')
+            return 'Alt+Command+I';
+          else
+            return 'Ctrl+Shift+I';
+        })(),
+        click: function(item, focusedWindow) {
+          if (focusedWindow)
+            focusedWindow.toggleDevTools();
+        }
+      },
+    ]
+  },
+  {
+    label: 'Window',
+    role: 'window',
+    submenu: [
+      {
+        label: 'Minimize',
+        accelerator: 'CmdOrCtrl+M',
+        role: 'minimize'
+      },
+      {
+        label: 'Close',
+        accelerator: 'CmdOrCtrl+W',
+        role: 'close'
+      },
+    ]
+  },
+  {
+    label: 'Help',
+    role: 'help',
+    submenu: [
+      {
+        label: 'Show Tutorial',
+        click: function() { $scope.showTutorial = true; }
+      },
+    ]
+  },
+];
+
+if (process.platform == 'darwin') {
+  var name = require('electron').app.getName();
+  template.unshift({
+    label: name,
+    submenu: [
+      {
+        label: 'About ' + name,
+        role: 'about'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Services',
+        role: 'services',
+        submenu: []
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Hide ' + name,
+        accelerator: 'Command+H',
+        role: 'hide'
+      },
+      {
+        label: 'Hide Others',
+        accelerator: 'Command+Alt+H',
+        role: 'hideothers'
+      },
+      {
+        label: 'Show All',
+        role: 'unhide'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Quit',
+        accelerator: 'Command+Q',
+        click: function() { app.quit(); }
+      },
+    ]
+  });
+  // Window menu.
+  template[3].submenu.push(
+    {
+      type: 'separator'
+    },
+    {
+      label: 'Bring All to Front',
+      role: 'front'
+    }
+  );
+}
+
+var menu = Menu.buildFromTemplate(template);
+Menu.setApplicationMenu(menu);
+
+
 
       //Our files
       $scope.tracks = [];
@@ -21,7 +191,18 @@
       $scope.directoryRoot = "";
 
       //Our default track height
-      var defaultTrackHeight = '150px';
+      var defaultTrackHeight = 175;
+
+      //Check if the user has used the app before
+      var hasUsed = localStorage.getItem("tutorial");
+      if(!hasUsed) $scope.showTutorial = true;
+
+      $scope.setTutorial = function(setBool) {
+
+          if(!setBool) localStorage.setItem("tutorial", true);
+
+          $scope.showTutorial = setBool;
+      }
 
       $scope.openDir = function(){
         dialog.showOpenDialog({ properties: [ 'openDirectory' ]}, function(fileName) {
@@ -47,12 +228,14 @@
         var title = path.basename(fileName);
         $scope.tracks.push({"uri": fileName, "title": title, "playbackSpeed": 100});
 
+        //Set playing to false
+        $scope.tracks[$scope.tracks.length - 1].playing = false;
+
         //Also save the tracks volume here for the ng model slider
         $scope.tracks[$scope.tracks.length - 1].playbackVolume = 100;
 
         //Also save the height of the track for preety animations
-        $scope.tracks[$scope.tracks.length - 1].cardHeight = {'height': defaultTrackHeight};
-
+        $scope.tracks[$scope.tracks.length - 1].cardHeight = {'height': defaultTrackHeight + 'px'};
       }
 
       $scope.removeTrack = function(index){
@@ -76,6 +259,9 @@
             $scope.tracks[index].player.stop();
             $scope.tracks[index].playing = false;
             $scope.tracks[index].player = null;
+
+            //Also shorten it's view
+            $scope.toggleTrackFader(false, index);
           } else {
             $scope.tracks[index].player = new Wad({
                 source : 'file://' + $scope.tracks[index].uri,
@@ -110,6 +296,9 @@
             $scope.tracks[index].currentTime = 0;
             $scope.tracks[index].playbackSpeed = 100;
             $scope.tracks[index].playing = true;
+
+            //Also expand it's view
+            $scope.toggleTrackFader(true, index);
           }
       }
 
@@ -145,7 +334,8 @@
               $scope.trackFader = index;
 
               //Also save the height of the track for preety animations
-              $scope.tracks[index].cardHeight = {'height': '300px'};
+              if($scope.tracks[index].playing) $scope.tracks[index].cardHeight = {'height': (defaultTrackHeight + 250) + 'px'};
+              else $scope.tracks[index].cardHeight = {'height': (defaultTrackHeight + 160) + 'px'};
           }
           else {
 
@@ -153,7 +343,8 @@
               $scope.trackFader = -1;
 
               //Also save the height of the track for preety animations
-              $scope.tracks[index].cardHeight = {'height': defaultTrackHeight};
+              if($scope.tracks[index].playing) $scope.tracks[index].cardHeight = {'height': (defaultTrackHeight + 90) + 'px'};
+              else $scope.tracks[index].cardHeight = {'height': (defaultTrackHeight) + 'px'};
           }
       }
 

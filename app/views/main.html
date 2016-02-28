@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="Home">
   <head>
-    <title>Electron Boilerplate: Hello World!</title>
+    <title>Flyxer</title>
     <!-- bower:css -->
     <link rel="stylesheet" href="../../dist/vendor/skeleton/css/skeleton.css" />
     <!-- endbower -->
@@ -10,192 +10,345 @@
   </head>
   <body ng-controller="MainController">
 
-      <div id="directoryTreeContainer">
+      <!-- Only show the app when we aren't viewing the tutorail -->
+      <div ng-show = "!showTutorial">
 
-        <h4 class = "fileTitle">File menu</h4>
+          <div id="directoryTreeContainer">
 
         <button ng-click = "openDir()"><img class="icon" src="../images/folder.png" /> Open Folder</button>
 
-        <!-- Layer 1 -->
-        <div ng-repeat="layer1 in directory.children">
+            <h4 class = "fileTitle">File Menu</h4>
 
-              <div class="directoryTreeItem"
-              ng-if="layer1.type == 'file'"
-              ng-click="addTrack(layer1.path)">
-                <img class="icon" src="../images/file.png" /> {{layer1.name}}
-              </div>
-
-              <div class="directoryTreeItem"
-              ng-if="layer1.type == 'directory'"
-              ng-click="layer1.expand = !layer1.expand">
-                <img class="icon" src="../images/folder.png" /> {{layer1.name}}
-              </div>
-
-          <!-- Layer 2 -->
-          <div
-          ng-if="layer1.expand"
-          ng-repeat="layer2 in layer1.children"
-          style="margin-left: 15px;">
+            <!-- Layer 1 -->
+            <div ng-repeat="layer1 in directory.children">
 
                 <div class="directoryTreeItem"
-                ng-if="layer2.type == 'file'"
-                ng-click="addTrack(layer2.path)">
-                    <img class="icon" src="../images/file.png" /> {{layer2.name}}
+                ng-if="layer1.type == 'directory'"
+                ng-click="layer1.expand = !layer1.expand">
+                  <img class="icon" src="../images/folder.png" />
+                      {{layer1.name}}
                 </div>
 
                 <div class="directoryTreeItem"
-                ng-if="layer2.type == 'directory'"
-                ng-click="layer2.expand = !layer2.expand">
-                    <img class="icon" src="../images/folder.png" /> {{layer2.name}}
+                ng-if="layer1.type == 'file'"
+                ng-click="addTrack(layer1.path)">
+                  <img class="icon" src="../images/file.png" /> {{layer1.name}}
                 </div>
 
+              <!-- Layer 2 -->
+              <div
+              ng-if="layer1.expand"
+              ng-repeat="layer2 in layer1.children"
+              style="margin-left: 15px;">
 
-                <!-- Layer 3 -->
-                <div ng-if="layer2.expand"
-                ng-repeat="layer3 in layer2.children"
-                style="margin-left: 30px;">
-                      <div class="directoryTreeItem"
-                      ng-if="layer3.type == 'file'"
-                      ng-click="addTrack(layer3.path)">
-                        <img class="icon" src="../images/file.png" /> {{layer3.name}}
+                  <div class="directoryTreeItem"
+                  ng-if="layer2.type == 'file'"
+                  ng-click="addTrack(layer2.path)">
+                      <img class="icon" src="../images/file.png" />
+                          {{layer2.name}}
+                  </div>
+
+                  <div class="directoryTreeItem"
+                  ng-if="layer2.type == 'directory'"
+                  ng-click="layer2.expand = !layer2.expand">
+                      <img class="icon" src="../images/folder.png" />
+                          {{layer2.name}}
+                  </div>
+
+
+                    <!-- Layer 3 -->
+                    <div ng-if="layer2.expand"
+                    ng-repeat="layer3 in layer2.children"
+                    style="margin-left: 30px;">
+                          <div class="directoryTreeItem"
+                          ng-if="layer3.type == 'file'"
+                          ng-click="addFile(layer3.path)">
+                            {{layer3.name}}
+                          </div>
+
+                          <div class="directoryTreeItem"
+                          ng-if="layer3.type == 'directory'">
+                            {{layer3.name}} - Cannot be expanded (too deeply nested)
+                          </div>
+
+                    </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div id="loopsContainer">
+
+              <h1 class = "center">Loop View</h1>
+
+                <div class = "trackFlex">
+
+                    <h1 class = "center trackTutorial"
+                    ng-click="setTutorial(true)"
+                    ng-if="tracks.length < 1">
+                        Need Some Help? Click Me!
+                    </h1>
+
+                    <div ng-repeat="track in tracks"
+                    class = "cardRepeat">
+
+                      <div
+                      class = "card"
+                      ng-mouseenter = "toggleTrackFader(true, $index)"
+                      ng-mouseleave = "toggleTrackFader(false, $index)"
+                      ng-class="{trackPlaying: track.playing}"
+                      ng-style="track.cardHeight">
+
+                      <img class="icon track-reload"
+                      src="../images/reload.png"
+                      ng-click="restartTrack($index)"
+                      alt="Restart Track" />
+
+                      <img class="icon track-close"
+                      src="../images/item_close.png"
+                      ng-click="removeTrack($index)"
+                      alt="Remove Track" />
+
+                          <h5 class = "trackTitle"
+                          id = "trackTitle-{{$index}}"
+                          ng-click="toggleTrack($index)">
+
+                              <img class="icon"
+                              src="../images/play.png"
+                              ng-if="!track.playing" />
+
+                              <img class="icon"
+                              src="../images/pause.png"
+                              ng-if="track.playing" />
+
+                              {{track.title}}
+
+                          </h5>
+
+                          <h6
+                          ng-if="track.playing">
+                          Playing
+                          </h6>
+
+                          <h6
+                          ng-if="track.playing">
+                          Time Remaining: {{track.timeRemaining}}
+                          </h6>
+
+                          <div ng-if="trackFader == $index">
+                              <h6>Track volume</h6>
+                                <input type="range"
+                                value = "100"
+                                min="0"
+                                max="100"
+                                ng-model="tracks[$index].playbackVolume"
+                                ng-change="setTrackVolume($index)">
+                                </input>
+                          </div>
+
+                          <div ng-if="trackFader == $index"><h6>Playback Speed</h6>
+                                <input type="range"
+                                value = "100"
+                                min="0"
+                                max="200"
+                                ng-model="tracks[$index].playbackSpeed"
+                                ng-change="setTrackSpeed($index)">
+                                </input>
+                          </div>
                       </div>
-
-                      <div class="directoryTreeItem"
-                      ng-if="layer3.type == 'directory'">
-                        <img class="icon" src="../images/folder.png" /> {{layer3.name}} - Cannot be expanded (too deeply nested)
-                      </div>
-
+                    </div>
                 </div>
 
           </div>
-        </div>
 
-      </div>
 
-      <div id="loopsContainer">
+      <!-- Our effects -->
+      <div class = "bottomBar">
 
-        <div class = "trackFlex">
+          <div class="effectsContainer">
 
-            <div ng-repeat="track in tracks"
-            class = "cardRepeat">
+              <h1 class = "effectsTitle">Master Effects</h1>
 
-              <div
-              class = "card"
-              ng-mouseenter = "toggleTrackFader(true, $index)"
-              ng-mouseleave = "toggleTrackFader(false, $index)"
-              ng-class="{trackPlaying: track.playing}"
-              ng-style="track.cardHeight">
+              <div class = "sliderFlex">
 
-                  <img class="icon track-reload" src="../images/reload.png" ng-click="restartTrack($index)" alt="Restart Track" />
-                  <img class="icon track-close" src="../images/item_close.png" ng-click="removeTrack($index)" alt="Remove Track" />
-
-                  <h5 class = "trackTitle"
-                  ng-click="toggleTrack($index)">
-                      <img class="icon" src="../images/play.png" ng-if="!track.playing" />
-                      <img class="icon" src="../images/pause.png" ng-if="track.playing" /> {{track.title}}
-                  <h5>
-
-                  <h6
-                  ng-if="track.playing">
-                  Playing
-                  </h6>
-
-                  <h6
-                  ng-if="track.playing">
-                  Time Remaining: {{track.timeRemaining}}
-                  </h6>
-
-                  <div ng-if="trackFader == $index"><h6>Track volume</h6>
+                  <div class = "flexItem">
+                      <h5>Volume</h5>
+                      <h6>{{masterVolume}}</h6>
                         <input type="range"
                         value = "100"
                         min="0"
                         max="100"
-                        ng-model="tracks[$index].playbackVolume"
-                        ng-change="setTrackVolume($index)">
+                        ng-model="masterVolume"
+                        ng-change="setVolume()">
                         </input>
-                  </div>
+                </div>
 
-                  <div ng-if="trackFader == $index"><h6>Playback Speed</h6>
+                  <div class = "flexItem">
+                      <h5>Playback Speed</h5>
+                      <h6>x{{masterSpeed / 100}}</h6>
                         <input type="range"
                         value = "100"
                         min="0"
                         max="200"
-                        ng-model="tracks[$index].playbackSpeed"
-                        ng-change="setTrackSpeed($index)">
+                        ng-model="masterSpeed"
+                        ng-change="setSpeed()">
                         </input>
-                  </div>
-              </div>
-            </div>
-        </div>
+                </div>
 
-      </div>
-
-
-      <!-- Our effects -->
-      <div id="effectsContainer">
-
-          <div class = "sliderFlex">
+                <div class = "flexItem">
+                    <h5>Delay</h5>
+                    <h6>Gain: {{masterDelay}}</h6>
+                      <input type="range"
+                      min="0"
+                      max="100"
+                      ng-model="masterDelay"
+                      ng-change="setDelay()">
+                      </input>
+               </div>
 
               <div class = "flexItem">
-                  <h5>Master Volume</h5>
-                  <h6>{{masterVolume}}</h6>
+                  <h5>Reverb</h5>
+                  <h6>Gain: {{masterReverb}}</h6>
                     <input type="range"
-                    value = "100"
                     min="0"
                     max="100"
-                    ng-model="masterVolume"
-                    ng-change="setVolume()">
+                    ng-model="masterReverb"
+                    ng-change="setReverb()">
                     </input>
-            </div>
-
-              <div class = "flexItem">
-                  <h5>Playback Speed</h5>
-                  <h6>x{{masterSpeed / 100}}</h6>
-                    <input type="range"
-                    value = "100"
-                    min="0"
-                    max="200"
-                    ng-model="masterSpeed"
-                    ng-change="setSpeed()">
-                    </input>
-            </div>
+              </div>
 
             <div class = "flexItem">
-                <h5>Delay</h5>
-                <h6>Gain: {{masterDelay}}</h6>
+                <h5>Lowpass Filter</h5>
+                <h6>Frequency: {{masterLowPass}}</h6>
                   <input type="range"
                   min="0"
-                  max="100"
-                  ng-model="masterDelay"
-                  ng-change="setDelay()">
+                  max="4000"
+                  ng-model="masterLowPass"
+                  ng-change="setLowPass()">
                   </input>
-           </div>
+            </div>
 
-          <div class = "flexItem">
-              <h5>Reverb</h5>
-              <h6>Gain: {{masterReverb}}</h6>
-                <input type="range"
-                min="0"
-                max="100"
-                ng-model="masterReverb"
-                ng-change="setReverb()">
-                </input>
+            </div>
+
           </div>
 
-        <div class = "flexItem">
-            <h5>Lowpass Filter</h5>
-            <h6>Frequency: {{masterLowPass}}</h6>
-              <input type="range"
-              min="0"
-              max="4000"
-              ng-model="masterLowPass"
-              ng-change="setLowPass()">
-              </input>
-        </div>
+          <div class = "oneShotContainer">
 
-        </div>
+               <h1 class = "oneShotTitle">One Shots</h1>
+          </div>
 
       </div>
+
+    </div>
+
+    <!-- Our tutorial page -->
+    <div ng-if="showTutorial"
+    class = "tutorialCard">
+
+        <!-- Intro -->
+        <h1 class = "center flyxerTitle">Flyxer</h1>
+        <h3 class = "center tagLine">"Music Mixing on the Fly"</h3>
+        <h6 class = "center tagLine">Tutorial</h6>
+
+        <hr />
+
+        <!-- File Menu -->
+        <h3 class = "center">File Menu</h3>
+
+        <div class = "headerImageContainer">
+            <img src = "../images/tutorial-fileMenu.png"
+            alt = "File Menu Screenshot"
+            class = "center">
+        </div>
+
+        <p>
+            The File Menu is where you will access audio files on your local machine.
+
+            To open a folder, click the "Open Folder" button placed near the top of
+            the scrollable folder menu. Which will prompt a folder chooser dialog
+            which you can then choose a folder containing your files
+
+            Folders are displayed as: << [Folder Name Here] >>, and files are displayed
+            by their file name.
+
+            Click a folder to expand it and enter it's directory, and click a file to
+            add it to the Loop View described below.
+
+            NOTE: You may only go three directories deep into a folder structure at a
+            time before the app will no longer display inner directory files.
+        </p>
+
+        <hr />
+
+        <!-- Loop View -->
+        <h3 class = "center">Loop View</h3>
+
+        <div class = "headerImageContainer">
+            <img src = "../images/tutorial-loopView.png"
+            alt = "File Menu Screenshot"
+            class = "center">
+        </div>
+
+        <p>
+            The Loop View is where audio files will be played, looped, and manipulated
+            on an individual basis.
+
+            Click the title of the audio to begin looping and set it to "Playing". Click
+            the title again to stop it from playing and looping.
+
+            While the track is playing, there will be a counter that displays the remaining
+            time left before the audio loops.
+
+            There are two sliders for individual track manipulation. Track Volume, and Playback Speed.
+
+            Track volume will raise or lower the track's volume as the slider increases and decreses.
+            And the Playback Speed will increase or decrease as the Slider increases or decreases.
+        </p>
+
+        <hr />
+
+        <!-- Loop View -->
+        <h3 class = "center">Master Effects</h3>
+
+        <div class = "headerImageContainer">
+            <img src = "../images/tutorial-masterEffects.png"
+            alt = "File Menu Screenshot"
+            class = "center">
+        </div>
+
+        <p>
+            The Master Effects are a collections of sliders that will manipulate the audio
+            of ALL playing audio tracks
+
+            "Volume" will manipulate the overall volume of all audio playing.
+
+            "Playback Speed" will manipulate the overall speed of all audio playing.
+
+            "Delay" will add a delay effect to all audio playing.
+
+            "Reverb" will add reverberation to all audio currently playing.
+
+            "Lowpass Filter" will manipulate the frequency of the Low Pass filter that is applied to
+            all audio playing.
+
+            NOTE: Currently Volume And Playback Speed will affect the individual audio volume
+            as well as the master volume, so this should be used only when one audio loop is being
+            played. To avoid any mistakes or confusion.
+        </p>
+
+        <hr />
+
+        <h5 class = "center tagLine">This tutorial can be accessed at any time,
+            by using the top-most file menu. By clicking "Help" > "Show Tutorial"
+        </h5>
+
+        <button class = "okayButton"
+        ng-click = "setTutorial(False)">
+            Okay!
+        </button>
+
+    </div>
 
     <!-- REQUIRED -->
     <script src="../../jspm_packages/system.js"></script>
