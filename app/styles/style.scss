@@ -15,6 +15,20 @@ html, body {
 	background: $light;
 }
 
+.icon {
+	max-width: 35px;
+	max-height: 30px;
+	vertical-align: middle;
+}
+.track-reload {
+	float: left;
+	max-height: 20px;
+}
+.track-close {
+	float: right;
+	max-height: 20px;
+}
+
 .directoryTreeItem {
 
 	background-color: $dirTreeBg;
@@ -120,6 +134,8 @@ html, body {
 
 
   .trackTitle {
+		text-align:center;
+		margin-top: 25px;
 
 	  word-wrap: break-word;
 	  transition: margin-bottom 0.5s, color 1.0s;

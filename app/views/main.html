@@ -14,7 +14,7 @@
 
         <h4 class = "fileTitle">File menu</h4>
 
-        <button ng-click = "openDir()">Open Folder</button>
+        <button ng-click = "openDir()"><img class="icon" src="../images/folder.png" /> Open Folder</button>
 
         <!-- Layer 1 -->
         <div ng-repeat="layer1 in directory.children">
@@ -22,13 +22,13 @@
               <div class="directoryTreeItem"
               ng-if="layer1.type == 'file'"
               ng-click="addTrack(layer1.path)">
-                {{layer1.name}}
+                <img class="icon" src="../images/file.png" /> {{layer1.name}}
               </div>
 
               <div class="directoryTreeItem"
               ng-if="layer1.type == 'directory'"
               ng-click="layer1.expand = !layer1.expand">
-                << {{layer1.name}} >>
+                <img class="icon" src="../images/folder.png" /> {{layer1.name}}
               </div>
 
           <!-- Layer 2 -->
@@ -40,13 +40,13 @@
                 <div class="directoryTreeItem"
                 ng-if="layer2.type == 'file'"
                 ng-click="addTrack(layer2.path)">
-                    {{layer2.name}}
+                    <img class="icon" src="../images/file.png" /> {{layer2.name}}
                 </div>
 
                 <div class="directoryTreeItem"
                 ng-if="layer2.type == 'directory'"
                 ng-click="layer2.expand = !layer2.expand">
-                    << {{layer2.name}} >>
+                    <img class="icon" src="../images/folder.png" /> {{layer2.name}}
                 </div>
 
 
@@ -57,12 +57,12 @@
                       <div class="directoryTreeItem"
                       ng-if="layer3.type == 'file'"
                       ng-click="addTrack(layer3.path)">
-                        {{layer3.name}}
+                        <img class="icon" src="../images/file.png" /> {{layer3.name}}
                       </div>
 
                       <div class="directoryTreeItem"
                       ng-if="layer3.type == 'directory'">
-                        {{layer3.name}} - Cannot be expanded (too deeply nested)
+                        <img class="icon" src="../images/folder.png" /> {{layer3.name}} - Cannot be expanded (too deeply nested)
                       </div>
 
                 </div>
@@ -85,6 +85,9 @@
               ng-mouseleave = "toggleTrackFader(false, $index)"
               ng-class="{trackPlaying: track.playing}"
               ng-style="track.cardHeight">
+
+                  <img class="icon track-reload" src="../images/reload.png" />
+                  <img class="icon track-close" src="../images/item_close.png" />
 
                   <h5 class = "trackTitle"
                   ng-click="toggleTrack($index)">
