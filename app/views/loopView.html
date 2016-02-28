@@ -1,0 +1,104 @@
+
+<!-- The main Loop Container view -->
+
+<div id="loopsContainer">
+
+    <h1 class = "center">Loop View</h1>
+
+      <div class = "trackFlex">
+
+          <h1 class = "center trackTutorial ngFadeUpDownSlow"
+          ng-click="setTutorial(true)"
+          ng-if="tracks.length < 1">
+              Need Some Help? Click Me!
+          </h1>
+
+          <div ng-repeat="track in tracks"
+          class = "cardRepeat ngFadeTracks">
+
+            <div
+            class = "card"
+            ng-mouseenter = "toggleTrackFader(true, $index)"
+            ng-mouseleave = "toggleTrackFader(false, $index)"
+            ng-class="{trackPlaying: track.playing}"
+            ng-style="track.cardHeight">
+
+            <!-- Table for our icons -->
+            <table class = "trackControl">
+                <tr>
+
+                    <td>
+                        <img class="track-reload"
+                        src="../images/reload.png"
+                        ng-click="restartTrack($index)"
+                        alt="Restart Track" />
+                    </td>
+
+                    <td>
+                        <img class="track-toggle"
+                        src="../images/play.png"
+                        ng-click="toggleTrack($index)"
+                        ng-if="!track.playing" />
+
+                        <img class="track-toggle"
+                        src="../images/pause.png"
+                        ng-click="toggleTrack($index)"
+                        ng-if="track.playing" />
+                  </td>
+
+                  <td>
+                    <img class="icon track-close"
+                    src="../images/item_close.png"
+                    ng-click="removeTrack($index)"
+                    alt="Remove Track" />
+                  </td>
+
+              </tr>
+            </table>
+
+                <h5 class = "trackTitle"
+                id = "trackTitle-{{$index}}"
+                ng-click="toggleTrack($index)">
+
+                    {{track.title}}
+
+                </h5>
+
+                <h6 class = "center"
+                ng-if="track.playing">
+                Playing
+                </h6>
+
+                <h6 class = "center"
+                ng-if="track.playing">
+                Time Remaining: {{track.timeRemaining}}
+                </h6>
+
+                <div ng-if="trackFader == $index"
+                class = "ngFadeUpDown">
+                    <h6>Track volume</h6>
+                      <input type="range"
+                      value = "100"
+                      min="0"
+                      max="100"
+                      ng-model="tracks[$index].playbackVolume"
+                      ng-change="setTrackVolume($index)">
+                      </input>
+                </div>
+
+                <div ng-if="trackFader == $index"
+                class = "ngFadeUpDown">
+                    <h6>Playback Speed</h6>
+                      <input type="range"
+                      value = "100"
+                      min="0"
+                      max="200"
+                      ng-model="tracks[$index].playbackSpeed"
+                      ng-change="setTrackSpeed($index)">
+                      </input>
+                </div>
+            </div>
+          </div>
+      </div>
+
+</div>

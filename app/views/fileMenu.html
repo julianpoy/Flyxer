@@ -1,0 +1,73 @@
+
+<!-- The Side file exploere view -->
+<div id="directoryTreeContainer">
+
+    <h4 class = "fileTitle">File Menu</h4>
+
+    <button class = "openFolder"
+    ng-click = "openDir()">
+        <img class="icon"
+        src="../images/folder.png" />
+        Open Folder
+    </button>
+
+    <!-- Layer 1 -->
+    <div ng-repeat="layer1 in directory.children"
+    class = "ngFade">
+
+        <div class="directoryTreeItem"
+        ng-if="layer1.type == 'directory'"
+        ng-click="layer1.expand = !layer1.expand">
+          <img class="icon" src="../images/folder.png" />
+              {{layer1.name}}
+        </div>
+
+        <div class="directoryTreeItem"
+        ng-if="layer1.type == 'file'"
+        ng-click="addTrack(layer1.path)">
+          <img class="icon" src="../images/file.png" /> {{layer1.name}}
+        </div>
+
+      <!-- Layer 2 -->
+      <div
+      ng-if="layer1.expand"
+      ng-repeat="layer2 in layer1.children"
+      style="margin-left: 15px;"
+      class = "ngFade">
+
+          <div class="directoryTreeItem"
+          ng-if="layer2.type == 'file'"
+          ng-click="addTrack(layer2.path)">
+              <img class="icon" src="../images/file.png" />
+                  {{layer2.name}}
+          </div>
+
+          <div class="directoryTreeItem"
+          ng-if="layer2.type == 'directory'"
+          ng-click="layer2.expand = !layer2.expand">
+              <img class="icon" src="../images/folder.png" />
+                  {{layer2.name}}
+          </div>
+
+
+            <!-- Layer 3 -->
+            <div ng-if="layer2.expand"
+            ng-repeat="layer3 in layer2.children"
+            style="margin-left: 30px;"
+            class = "ngFade">
+                  <div class="directoryTreeItem"
+                  ng-if="layer3.type == 'file'"
+                  ng-click="addFile(layer3.path)">
+                    {{layer3.name}}
+                  </div>
+
+                  <div class="directoryTreeItem"
+                  ng-if="layer3.type == 'directory'">
+                    {{layer3.name}} - Cannot be expanded (too deeply nested)
+                  </div>
+
+            </div>
+
+      </div>
+    </div>
+</div>
