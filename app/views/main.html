@@ -15,48 +15,59 @@
 
           <div id="directoryTreeContainer">
 
-            <h4 class = "fileTitle">File menu</h4>
+            <h4 class = "fileTitle">File Menu</h4>
 
-            <button ng-click = "openDir()">Open Folder</button>
+            <button class = "openFolder"
+            ng-click = "openDir()">
+                <img class="icon"
+                src="../images/folder.png" />
+                Open Folder
+            </button>
 
             <!-- Layer 1 -->
-            <div ng-repeat="layer1 in directory.children">
+            <div ng-repeat="layer1 in directory.children"
+            class = "ngFade">
 
-                  <div class="directoryTreeItem"
-                  ng-if="layer1.type == 'file'"
-                  ng-click="addFile(layer1.path)">
-                    {{layer1.name}}
-                  </div>
+                <div class="directoryTreeItem"
+                ng-if="layer1.type == 'directory'"
+                ng-click="layer1.expand = !layer1.expand">
+                  <img class="icon" src="../images/folder.png" />
+                      {{layer1.name}}
+                </div>
 
-                  <div class="directoryTreeItem"
-                  ng-if="layer1.type == 'directory'"
-                  ng-click="layer1.expand = !layer1.expand">
-                    << {{layer1.name}} >>
-                  </div>
+                <div class="directoryTreeItem"
+                ng-if="layer1.type == 'file'"
+                ng-click="addTrack(layer1.path)">
+                  <img class="icon" src="../images/file.png" /> {{layer1.name}}
+                </div>
 
               <!-- Layer 2 -->
               <div
               ng-if="layer1.expand"
               ng-repeat="layer2 in layer1.children"
-              style="margin-left: 15px;">
+              style="margin-left: 15px;"
+              class = "ngFade">
 
-                    <div class="directoryTreeItem"
-                    ng-if="layer2.type == 'file'"
-                    ng-click="addFile(layer2.path)">
-                        {{layer2.name}}
-                    </div>
+                  <div class="directoryTreeItem"
+                  ng-if="layer2.type == 'file'"
+                  ng-click="addTrack(layer2.path)">
+                      <img class="icon" src="../images/file.png" />
+                          {{layer2.name}}
+                  </div>
 
-                    <div class="directoryTreeItem"
-                    ng-if="layer2.type == 'directory'"
-                    ng-click="layer2.expand = !layer2.expand">
-                        << {{layer2.name}} >>
-                    </div>
+                  <div class="directoryTreeItem"
+                  ng-if="layer2.type == 'directory'"
+                  ng-click="layer2.expand = !layer2.expand">
+                      <img class="icon" src="../images/folder.png" />
+                          {{layer2.name}}
+                  </div>
 
 
                     <!-- Layer 3 -->
                     <div ng-if="layer2.expand"
                     ng-repeat="layer3 in layer2.children"
-                    style="margin-left: 30px;">
+                    style="margin-left: 30px;"
+                    class = "ngFade">
                           <div class="directoryTreeItem"
                           ng-if="layer3.type == 'file'"
                           ng-click="addFile(layer3.path)">
@@ -72,149 +83,189 @@
 
               </div>
             </div>
-
           </div>
+
 
           <div id="loopsContainer">
 
               <h1 class = "center">Loop View</h1>
 
-            <div class = "trackFlex">
+                <div class = "trackFlex">
 
-                <h1 class = "center trackTutorial"
-                ng-click="setTutorial(true)"
-                ng-if="tracks.length < 1">
-                    Need Some Help? Click Me!
-                </h1>
+                    <h1 class = "center trackTutorial ngFadeUpDownSlow"
+                    ng-click="setTutorial(true)"
+                    ng-if="tracks.length < 1">
+                        Need Some Help? Click Me!
+                    </h1>
 
-                <div ng-repeat="track in tracks"
-                class = "cardRepeat">
+                    <div ng-repeat="track in tracks"
+                    class = "cardRepeat ngFadeTracks">
 
-                  <div
-                  class = "card"
-                  ng-mouseenter = "toggleTrackFader(true, $index)"
-                  ng-mouseleave = "toggleTrackFader(false, $index)"
-                  ng-class="{trackPlaying: track.playing}"
-                  ng-style="track.cardHeight">
+                      <div
+                      class = "card"
+                      ng-mouseenter = "toggleTrackFader(true, $index)"
+                      ng-mouseleave = "toggleTrackFader(false, $index)"
+                      ng-class="{trackPlaying: track.playing}"
+                      ng-style="track.cardHeight">
 
-                      <h5 class = "trackTitle"
-                      id = "trackTitle-{{$index}}"
-                      ng-click="toggleTrack($index)">
-                          {{track.title}}
-                      <h5>
+                      <!-- Table for our icons -->
+                      <table class = "trackControl">
+                          <tr>
 
-                      <h6
-                      ng-if="track.playing">
-                      Playing
-                      </h6>
+                              <td>
+                                  <img class="track-reload"
+                                  src="../images/reload.png"
+                                  ng-click="restartTrack($index)"
+                                  alt="Restart Track" />
+                              </td>
 
-                      <h6
-                      ng-if="track.playing">
-                      Time Remaining: {{track.timeRemaining}}
-                      </h6>
+                              <td>
+                                  <img class="track-toggle"
+                                  src="../images/play.png"
+                                  ng-click="toggleTrack($index)"
+                                  ng-if="!track.playing" />
 
-                      <div ng-if="trackFader == $index"><h6>Track volume</h6>
-                            <input type="range"
-                            value = "100"
-                            min="0"
-                            max="100"
-                            ng-model="tracks[$index].playbackVolume"
-                            ng-change="setTrackVolume($index)">
-                            </input>
+                                  <img class="track-toggle"
+                                  src="../images/pause.png"
+                                  ng-click="toggleTrack($index)"
+                                  ng-if="track.playing" />
+                            </td>
+
+                            <td>
+                              <img class="icon track-close"
+                              src="../images/item_close.png"
+                              ng-click="removeTrack($index)"
+                              alt="Remove Track" />
+                            </td>
+
+                        </tr>
+                      </table>
+
+                          <h5 class = "trackTitle"
+                          id = "trackTitle-{{$index}}"
+                          ng-click="toggleTrack($index)">
+
+                              {{track.title}}
+
+                          </h5>
+
+                          <h6 class = "center"
+                          ng-if="track.playing">
+                          Playing
+                          </h6>
+
+                          <h6 class = "center"
+                          ng-if="track.playing">
+                          Time Remaining: {{track.timeRemaining}}
+                          </h6>
+
+                          <div ng-if="trackFader == $index"
+                          class = "ngFadeUpDown">
+                              <h6>Track volume</h6>
+                                <input type="range"
+                                value = "100"
+                                min="0"
+                                max="100"
+                                ng-model="tracks[$index].playbackVolume"
+                                ng-change="setTrackVolume($index)">
+                                </input>
+                          </div>
+
+                          <div ng-if="trackFader == $index"
+                          class = "ngFadeUpDown">
+                              <h6>Playback Speed</h6>
+                                <input type="range"
+                                value = "100"
+                                min="0"
+                                max="200"
+                                ng-model="tracks[$index].playbackSpeed"
+                                ng-change="setTrackSpeed($index)">
+                                </input>
+                          </div>
                       </div>
-
-                      <div ng-if="trackFader == $index"><h6>Playback Speed</h6>
-                            <input type="range"
-                            value = "100"
-                            min="0"
-                            max="200"
-                            ng-model="tracks[$index].playbackSpeed"
-                            ng-change="setTrackSpeed($index)">
-                            </input>
-                      </div>
-                  </div>
+                    </div>
                 </div>
+
+          </div>
+
+
+      <!-- Our effects -->
+      <div id = "bottomBar">
+
+          <div class="effectsContainer">
+
+              <h1 class = "effectsTitle">Master Effects</h1>
+
+              <div class = "sliderFlex">
+
+                  <div class = "flexItem">
+                      <h5>Volume</h5>
+                      <h6>{{masterVolume}}</h6>
+                        <input type="range"
+                        value = "100"
+                        min="0"
+                        max="100"
+                        ng-model="masterVolume"
+                        ng-change="setVolume()">
+                        </input>
+                </div>
+
+                  <div class = "flexItem">
+                      <h5>Playback Speed</h5>
+                      <h6>x{{masterSpeed / 100}}</h6>
+                        <input type="range"
+                        value = "100"
+                        min="0"
+                        max="200"
+                        ng-model="masterSpeed"
+                        ng-change="setSpeed()">
+                        </input>
+                </div>
+
+                <div class = "flexItem">
+                    <h5>Delay</h5>
+                    <h6>Gain: {{masterDelay}}</h6>
+                      <input type="range"
+                      min="0"
+                      max="100"
+                      ng-model="masterDelay"
+                      ng-change="setDelay()">
+                      </input>
+               </div>
+
+              <div class = "flexItem">
+                  <h5>Reverb</h5>
+                  <h6>Gain: {{masterReverb}}</h6>
+                    <input type="range"
+                    min="0"
+                    max="100"
+                    ng-model="masterReverb"
+                    ng-change="setReverb()">
+                    </input>
+              </div>
+
+            <div class = "flexItem">
+                <h5>Lowpass Filter</h5>
+                <h6>Frequency: {{masterLowPass}}</h6>
+                  <input type="range"
+                  min="0"
+                  max="4000"
+                  ng-model="masterLowPass"
+                  ng-change="setLowPass()">
+                  </input>
+            </div>
+
             </div>
 
           </div>
 
+          <div class = "oneShotContainer">
 
-          <!-- Our effects -->
-          <div class = "bottomBar">
-
-              <div class="effectsContainer">
-
-                  <h1 class = "effectsTitle">Master Effects</h1>
-
-                  <div class = "sliderFlex">
-
-                      <div class = "flexItem">
-                          <h5>Volume</h5>
-                          <h6>{{masterVolume}}</h6>
-                            <input type="range"
-                            value = "100"
-                            min="0"
-                            max="100"
-                            ng-model="masterVolume"
-                            ng-change="setVolume()">
-                            </input>
-                    </div>
-
-                      <div class = "flexItem">
-                          <h5>Playback Speed</h5>
-                          <h6>x{{masterSpeed / 100}}</h6>
-                            <input type="range"
-                            value = "100"
-                            min="0"
-                            max="200"
-                            ng-model="masterSpeed"
-                            ng-change="setSpeed()">
-                            </input>
-                    </div>
-
-                    <div class = "flexItem">
-                        <h5>Delay</h5>
-                        <h6>Gain: {{masterDelay}}</h6>
-                          <input type="range"
-                          min="0"
-                          max="100"
-                          ng-model="masterDelay"
-                          ng-change="setDelay()">
-                          </input>
-                   </div>
-
-                  <div class = "flexItem">
-                      <h5>Reverb</h5>
-                      <h6>Gain: {{masterReverb}}</h6>
-                        <input type="range"
-                        min="0"
-                        max="100"
-                        ng-model="masterReverb"
-                        ng-change="setReverb()">
-                        </input>
-                  </div>
-
-                <div class = "flexItem">
-                    <h5>Lowpass Filter</h5>
-                    <h6>Frequency: {{masterLowPass}}</h6>
-                      <input type="range"
-                      min="0"
-                      max="4000"
-                      ng-model="masterLowPass"
-                      ng-change="setLowPass()">
-                      </input>
-                </div>
-
-                </div>
-
-              </div>
-
-              <div class = "oneShotContainer">
-
-                   <h1 class = "oneShotTitle">One Shots</h1>
-              </div>
-
+               <h1 class = "oneShotTitle">One Shots</h1>
           </div>
+
+      </div>
+
     </div>
 
     <!-- Our tutorial page -->
@@ -332,6 +383,7 @@
     <script src="../../dist/vendor/angular/angular.js"></script>
     <script src="../../dist/vendor/angular-mocks/angular-mocks.js"></script>
     <!-- endbower -->
+    <script src="../../dist/vendor/angular-animate/angular-animate.min.js"></script>
     <script src="../../dist/vendor/Wad/build/wad.min.js"></script>
     <script src="../scripts/controllers/main.js"></script>
   </body>

@@ -1,0 +1,60 @@
+
+.fastAnimated {
+
+    @extend .animated;
+
+      -webkit-animation-duration: 0.5s;
+      animation-duration: 0.5s;
+}
+
+.crazyAnimated {
+
+    @extend .animated;
+
+      -webkit-animation-duration: 0.35s;
+      animation-duration: 0.35s;
+}
+
+.ngFade {
+
+    @extend .fastAnimated;
+
+    &.ng-enter {
+        @extend .fadeIn;
+    }
+
+    &.ng-leave {
+        @extend .fadeOut;
+    }
+
+}
+
+.ngFadeTracks {
+
+    @extend .fastAnimated;
+
+    &.ng-enter {
+        @extend .fadeIn;
+    }
+
+    &.ng-leave {
+        
+        -webkit-animation-duration: 0s;
+        animation-duration: 0s;
+    }
+
+}
+
+.ngFadeUpDown {
+
+    @extend .crazyAnimated;
+
+    &.ng-enter {
+        @extend .fadeInUp;
+    }
+
+    &.ng-leave {
+        @extend .fadeOutDown;
+    }
+
+}

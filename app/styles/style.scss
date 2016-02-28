@@ -5,7 +5,10 @@
 
 /*Our Imports*/
 @import 'colors';
+@import 'headers';
 @import 'range';
+@import 'animate';
+@import 'ngAnimate';
 
 html, body {
 	width: 100%;
@@ -14,6 +17,57 @@ html, body {
 	margin: 0;
 	background: $light;
 	color: $dark;
+}
+
+//Variable for our folder view width
+$folderViewWidth: 300px;
+
+//The Center class in the flesh
+.center {
+
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.icon {
+	max-width: 35px;
+	max-height: 30px;
+	vertical-align: middle;
+}
+
+.trackControl {
+
+	width: 100%;
+
+	td {
+
+		width: 33.33%;
+
+		.track-reload {
+			@extend .icon;
+
+			display: block;
+			margin: 0 auto;
+			max-height: 20px;
+		}
+
+		.track-close {
+			@extend .icon;
+
+			display: block;
+			margin: 0 auto;
+			max-height: 20px;
+		}
+
+		.track-toggle {
+			@extend .icon;
+
+			display: block;
+			margin: 0 auto;
+			max-height: 20px;
+		}
+	}
 }
 
 .directoryTreeItem {
@@ -40,24 +94,32 @@ html, body {
 	top: 0px;
 	left: 0px;
 	bottom: 0px;
-	width: 200px;
+	width: $folderViewWidth;
 	overflow: auto;
 	background-color: $dirTreeBg;
 	padding: 15px;
 
 	.fileTitle {
+
 		font-weight: bolder;
 		text-align: center;
-		width: 155px;
+		width: 235px;
 		line-height: inherit;
+
+		text-align: center;
+	}
+
+	.openFolder {
+
+		margin-left: 20px;
 	}
 }
 
-.bottomBar {
+#bottomBar {
 
 	position: absolute;
 	bottom: 0px;
-	left: 200px;
+	left: $folderViewWidth;
 	right: 0px;
 	height: 250px;
 	overflow: auto;
@@ -129,7 +191,8 @@ html, body {
 }
 
 #loopsContainer {
-	left: 200px;
+
+	left: $folderViewWidth;
 	right: 0px;
 	bottom: 250px;
 	top: 0px;
@@ -146,7 +209,7 @@ html, body {
 
 		margin-bottom: 10px;
 		color: $linkColor;
-		text-decoration: underline;
+		//text-decoration: underline;
 	}
 }
 
@@ -159,19 +222,20 @@ html, body {
   border-radius:3px;
 
   //Nice little animation on when the card height changes
-  transition: height 0.55s ease-in-out;
+  transition: height 0.35s ease-in-out;
 
 
   .trackTitle {
+		text-align:center;
+		margin-top: 10px;
 
 	  word-wrap: break-word;
 	  transition: margin-bottom 0.5s, color 1.0s;
 
   	&:hover {
 
-  		margin-bottom: 10px;
   		color: $linkColor;
-		text-decoration: underline;
+		//text-decoration: underline;
   	}
 
   }
@@ -186,7 +250,9 @@ html, body {
 }
 
 .trackPlaying {
+
 	background-color: $trackPlaying;
+	border: 2px dashed $linkColor;
 }
 
 .trackFlex {

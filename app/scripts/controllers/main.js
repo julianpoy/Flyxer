@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('Home', []).
+  angular.module('Home', ['ngAnimate']).
   controller('MainController', ['$scope', MainController]);
 
   function MainController($scope) {
@@ -182,8 +182,6 @@ if (process.platform == 'darwin') {
 var menu = Menu.buildFromTemplate(template);
 Menu.setApplicationMenu(menu);
 
-
-
       //Our files
       $scope.tracks = [];
 
@@ -204,33 +202,6 @@ Menu.setApplicationMenu(menu);
           $scope.showTutorial = setBool;
       }
 
-      //Open a file
-      $scope.openFile = function() {
-          dialog.showOpenDialog({ properties: [ 'openFile' ]}, function(fileName) {
-              fileName = String(fileName);
-              //Check if fileName is a file or directory.
-              var isFile = fileName.match(/.*\..../g);
-              if(isFile){
-                var title = path.basename(fileName);
-                $scope.tracks.push({"uri": fileName, "title": title});
-              } else {
-                var dir = fs.readdirSync(fileName);
-                for(var i=0;i<dir.length;i++){
-                  var forwardSlash = fileName.match(/\//g);
-                  var fullPath;
-                  if(forwardSlash){
-                    var fullPath = fileName + "/" + String(dir[i]);
-                  } else {
-                    var fullPath = fileName + "\\" + String(dir[i]);
-                  }
-                  var title = path.basename(dir[i]);
-                  $scope.tracks.push({"uri": fullPath, "title": title});
-                }
-              }
-              $scope.$apply();
-          });
-      }
-
       $scope.openDir = function(){
         dialog.showOpenDialog({ properties: [ 'openDirectory' ]}, function(fileName) {
           $scope.directoryRoot = fileName[0];
@@ -243,7 +214,7 @@ Menu.setApplicationMenu(menu);
         });
       }
 
-      $scope.addFile = function(fileName){
+      $scope.addTrack = function(fileName){
         var forwardSlash = $scope.directoryRoot.match(/\//g);
         var slash;
         if(forwardSlash){
@@ -263,6 +234,18 @@ Menu.setApplicationMenu(menu);
 
         //Also save the height of the track for preety animations
         $scope.tracks[$scope.tracks.length - 1].cardHeight = {'height': defaultTrackHeight + 'px'};
+      }
+
+      $scope.removeTrack = function(index){
+        if($scope.tracks[index].playing) $scope.toggleTrack(index);
+        $scope.tracks.splice(index, 1);
+      }
+
+      $scope.restartTrack = function(index){
+        if($scope.tracks[index].playing){
+          $scope.toggleTrack(index);
+          $scope.toggleTrack(index);
+        }
       }
 
       //Play/stop a track
