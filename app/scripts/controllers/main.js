@@ -56,8 +56,15 @@
       }
 
       $scope.removeTrack = function(index){
-        if($scope.tracks[index].playing) toggleTrack(index);
+        if($scope.tracks[index].playing) $scope.toggleTrack(index);
         $scope.tracks.splice(index, 1);
+      }
+
+      $scope.restartTrack = function(index){
+        if($scope.tracks[index].playing){
+          $scope.toggleTrack(index);
+          $scope.toggleTrack(index);
+        }
       }
 
       //Play/stop a track

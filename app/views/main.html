@@ -86,8 +86,8 @@
               ng-class="{trackPlaying: track.playing}"
               ng-style="track.cardHeight">
 
-                  <img class="icon track-reload" src="../images/reload.png" />
-                  <img class="icon track-close" src="../images/item_close.png" />
+                  <img class="icon track-reload" src="../images/reload.png" ng-click="restartTrack($index)" alt="Restart Track" />
+                  <img class="icon track-close" src="../images/item_close.png" ng-click="removeTrack($index)" alt="Remove Track" />
 
                   <h5 class = "trackTitle"
                   ng-click="toggleTrack($index)">
