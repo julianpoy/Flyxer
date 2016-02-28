@@ -1,87 +1,87 @@
-/* Generated from http://danielstern.ca/range.css/#/ */
+/* Range.css */
 
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
-  margin: 9.9px 0;
+  margin: 9.3px 0;
 }
 input[type=range]:focus {
   outline: none;
 }
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
-  height: 9.2px;
+  height: 11.4px;
   cursor: pointer;
-  box-shadow: 1px 1px 0.9px #000000, 0px 0px 1px #0d0d0d;
-  background: #414141;
-  border-radius: 25px;
-  border: 1.6px solid #010101;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: rgba(9, 9, 9, 0.78);
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
 }
 input[type=range]::-webkit-slider-thumb {
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #000000;
-  height: 29px;
-  width: 25px;
-  border-radius: 2px;
-  background: #ffffff;
+  box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+  border: 1.8px solid #414141;
+  height: 30px;
+  width: 30px;
+  border-radius: 3px;
+  background: #fefefe;
   cursor: pointer;
   -webkit-appearance: none;
-  margin-top: -11.5px;
+  margin-top: -9.5px;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #555555;
+  background: rgba(29, 29, 29, 0.78);
 }
 input[type=range]::-moz-range-track {
   width: 100%;
-  height: 9.2px;
+  height: 11.4px;
   cursor: pointer;
-  box-shadow: 1px 1px 0.9px #000000, 0px 0px 1px #0d0d0d;
-  background: #414141;
-  border-radius: 25px;
-  border: 1.6px solid #010101;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: rgba(9, 9, 9, 0.78);
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
 }
 input[type=range]::-moz-range-thumb {
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #000000;
-  height: 29px;
-  width: 25px;
-  border-radius: 2px;
-  background: #ffffff;
+  box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+  border: 1.8px solid #414141;
+  height: 30px;
+  width: 30px;
+  border-radius: 3px;
+  background: #fefefe;
   cursor: pointer;
 }
 input[type=range]::-ms-track {
   width: 100%;
-  height: 9.2px;
+  height: 11.4px;
   cursor: pointer;
   background: transparent;
   border-color: transparent;
   color: transparent;
 }
 input[type=range]::-ms-fill-lower {
-  background: #2d2d2d;
-  border: 1.6px solid #010101;
-  border-radius: 50px;
-  box-shadow: 1px 1px 0.9px #000000, 0px 0px 1px #0d0d0d;
+  background: rgba(0, 0, 0, 0.78);
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 input[type=range]::-ms-fill-upper {
-  background: #414141;
-  border: 1.6px solid #010101;
-  border-radius: 50px;
-  box-shadow: 1px 1px 0.9px #000000, 0px 0px 1px #0d0d0d;
+  background: rgba(9, 9, 9, 0.78);
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 input[type=range]::-ms-thumb {
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #000000;
-  height: 29px;
-  width: 25px;
-  border-radius: 2px;
-  background: #ffffff;
+  box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+  border: 1.8px solid #414141;
+  height: 30px;
+  width: 30px;
+  border-radius: 3px;
+  background: #fefefe;
   cursor: pointer;
-  height: 9.2px;
+  height: 11.4px;
 }
 input[type=range]:focus::-ms-fill-lower {
-  background: #414141;
+  background: rgba(9, 9, 9, 0.78);
 }
 input[type=range]:focus::-ms-fill-upper {
-  background: #555555;
+  background: rgba(29, 29, 29, 0.78);
 }
