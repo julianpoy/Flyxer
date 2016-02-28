@@ -255,6 +255,17 @@
                   </input>
             </div>
 
+            <div class = "flexItem">
+                <h5>BitCrusher</h5>
+                <h6>Bits: {{masterBitCrush}}</h6>
+                  <input type="range"
+                  min="0"
+                  max="16"
+                  ng-model="masterBitCrush"
+                  ng-change="setBitCrush()">
+                  </input>
+            </div>
+
             </div>
 
           </div>
@@ -384,7 +395,7 @@
     <script src="../../dist/vendor/angular-mocks/angular-mocks.js"></script>
     <!-- endbower -->
     <script src="../../dist/vendor/angular-animate/angular-animate.min.js"></script>
-    <script src="../../dist/vendor/Wad/build/wad.min.js"></script>
     <script src="../scripts/controllers/main.js"></script>
+    <script src="../../dist/vendor/Wad/build/wad.js"></script>
   </body>
 </html>

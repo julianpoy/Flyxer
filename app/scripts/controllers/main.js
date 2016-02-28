@@ -13,6 +13,10 @@
       var remote = require('remote');
       var dialog = remote.require('dialog');
 
+      //Set up tuna node style for Wad :)
+      var Tuna = require("../../dist/vendor/tuna-min.js");
+      window.Tuna = Tuna;
+
       //Electron File Menu
       const electronRemote = require('electron').remote
       const Menu = electronRemote.Menu;
@@ -264,21 +268,29 @@ Menu.setApplicationMenu(menu);
             $scope.tracks[index].player = new Wad({
                 source : 'file://' + $scope.tracks[index].uri,
                 volume: 1.0,
+                wait    : 0,
                 loop: true,
                 env : { hold : 100000000 },
                 delay   : {
                       delayTime : 0.5,  // Time in seconds between each delayed playback.
-                      wet       : 0, // Relative volume change between the original sound and the first delayed playback.
-                      feedback  : 0, // Relative volume change between each delayed playback and the next.
+                      wet : 0, // Relative volume change between the original sound and the first delayed playback.
+                      feedback : 0, // Relative volume change between each delayed playback and the next.
                 },
                 reverb  : {
-                    wet     : 0,  // Volume of the reverberations.
+                    wet : 0,  // Volume of the reverberations.
                     impulse : '../sounds/impulse.wav' // A URL for an impulse response file, if you do not want to use the default impulse response.
                 },
                 filter  : {
-                      type      : 'lowpass', // What type of filter is applied.
+                      type : 'lowpass', // What type of filter is applied.
                       frequency : 4000,       // The frequency, in hertz, to which the filter is applied.
-                      q         : 3,         // Q-factor.  No one knows what this does. The default value is 1. Sensible values are from 0 to 10.
+                      q : 1,         // Q-factor.  No one knows what this does. The default value is 1. Sensible values are from 0 to 10.
+                },
+                tuna   : {
+                    Bitcrusher : {
+                        bits: 16,          //1 to 16
+                        normfreq: 1,    //0 to 1
+                        bufferSize: 4096  //256 to 16384
+                    },
                 }
             });
 
@@ -362,7 +374,7 @@ Menu.setApplicationMenu(menu);
       //Volume
       $scope.setTrackVolume = function(index) {
 
-          if($scope.tracks[index].playing) $scope.tracks[index].player.nodes[3].output.gain.value = (parseInt($scope.tracks[index].playbackVolume) / 100 * $scope.tracks[index].initVolumeMul);
+          if($scope.tracks[index].playing) $scope.tracks[index].player.nodes[4].output.gain.value = (parseInt($scope.tracks[index].playbackVolume) / 100 * $scope.tracks[index].initVolumeMul);
       }
 
       //Speed
@@ -434,6 +446,18 @@ Menu.setApplicationMenu(menu);
             $scope.tracks[i].player.filter[0].node.frequency.value = $scope.masterLowPass;
           }
         }
+      }
+
+      //Overdrive
+      $scope.masterBitCrush = 16;
+      $scope.setBitCrush = function() {
+          for(var i=0;i<$scope.tracks.length;i++){
+            if($scope.tracks[i].playing){
+              //Set the value
+              $scope.tracks[i].player.nodes[2].processor.bits = parseInt($scope.masterBitCrush);
+              $scope.tracks[i].player.nodes[2].processor.normfreq = parseInt($scope.masterBitCrush) / 16;
+            }
+          }
       }
 
       //Start the timer thread
