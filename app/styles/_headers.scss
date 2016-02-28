@@ -1,0 +1,30 @@
+
+/* Redefining all header tag sizes*/
+
+//Declare our header base (h6)
+
+$headerBase: 12;
+
+h6 {
+    font-size:  unquote(($headerBase) + 'px')
+}
+
+h5 {
+    font-size:  unquote(($headerBase * 1.24) + 'px')
+}
+
+h4 {
+    font-size:  unquote(($headerBase * 1.485) + 'px')
+}
+
+h3 {
+    font-size:  unquote(($headerBase * 1.746) + 'px')
+}
+
+h2 {
+    font-size:  unquote(($headerBase * 2.239) + 'px')
+}
+
+h1 {
+    font-size:  unquote(($headerBase * 2.985) + 'px')
+}
