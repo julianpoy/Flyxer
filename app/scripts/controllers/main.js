@@ -23,33 +23,6 @@
       //Our default track height
       var defaultTrackHeight = '150px';
 
-      //Open a file
-      $scope.openFile = function() {
-          dialog.showOpenDialog({ properties: [ 'openFile' ]}, function(fileName) {
-              fileName = String(fileName);
-              //Check if fileName is a file or directory.
-              var isFile = fileName.match(/.*\..../g);
-              if(isFile){
-                var title = path.basename(fileName);
-                $scope.tracks.push({"uri": fileName, "title": title});
-              } else {
-                var dir = fs.readdirSync(fileName);
-                for(var i=0;i<dir.length;i++){
-                  var forwardSlash = fileName.match(/\//g);
-                  var fullPath;
-                  if(forwardSlash){
-                    var fullPath = fileName + "/" + String(dir[i]);
-                  } else {
-                    var fullPath = fileName + "\\" + String(dir[i]);
-                  }
-                  var title = path.basename(dir[i]);
-                  $scope.tracks.push({"uri": fullPath, "title": title});
-                }
-              }
-              $scope.$apply();
-          });
-      }
-
       $scope.openDir = function(){
         dialog.showOpenDialog({ properties: [ 'openDirectory' ]}, function(fileName) {
           $scope.directoryRoot = fileName[0];
