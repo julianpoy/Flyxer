@@ -25,6 +25,20 @@
         font-style: italic;
     }
 
+    .headerImageContainer {
+
+        margin-bottom: 25px;
+
+        img {
+            display: block;
+            max-width: 80%;
+        }
+    }
+
+    p {
+        font-size: 16px;
+    }
+
     .okayButton {
 
         @extend .center;

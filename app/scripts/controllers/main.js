@@ -191,14 +191,17 @@ Menu.setApplicationMenu(menu);
       $scope.directoryRoot = "";
 
       //Our default track height
-      var defaultTrackHeight = 115;
+      var defaultTrackHeight = 175;
 
       //Check if the user has used the app before
       var hasUsed = localStorage.getItem("tutorial");
       if(!hasUsed) $scope.showTutorial = true;
 
-      $scope.hideTutorial = function() {
-          $scope.showTutorial = false;
+      $scope.setTutorial = function(setBool) {
+
+          if(!setBool) localStorage.setItem("tutorial", true);
+
+          $scope.showTutorial = setBool;
       }
 
       //Open a file
@@ -260,9 +263,6 @@ Menu.setApplicationMenu(menu);
 
         //Also save the height of the track for preety animations
         $scope.tracks[$scope.tracks.length - 1].cardHeight = {'height': defaultTrackHeight + 'px'};
-
-        console.log(document.getElementById("trackTitle-" + index).style.height);
-
       }
 
       //Play/stop a track

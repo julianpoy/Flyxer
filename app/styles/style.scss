@@ -13,6 +13,7 @@ html, body {
 	padding: 0;
 	margin: 0;
 	background: $light;
+	color: $dark;
 }
 
 .directoryTreeItem {
@@ -138,6 +139,17 @@ html, body {
 	padding: 15px;
 }
 
+.trackTutorial {
+
+
+	&:hover {
+
+		margin-bottom: 10px;
+		color: $linkColor;
+		text-decoration: underline;
+	}
+}
+
 .card {
 
   padding: 15px;
@@ -183,6 +195,8 @@ html, body {
 	flex-wrap: wrap;
 	flex-direction: row;
 	justify-content: space-around;
+
+	margin-top: 10px;
 }
 
 /* Our last imports, quickfixes and tutorial page */
