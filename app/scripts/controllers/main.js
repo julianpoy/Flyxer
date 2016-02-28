@@ -243,6 +243,9 @@ Menu.setApplicationMenu(menu);
       $scope.removeTrack = function(index){
         if($scope.tracks[index].playing) $scope.toggleTrack(index);
         $scope.tracks.splice(index, 1);
+
+        //Make sure that selected track index for our slider showing is reset
+         $scope.trackFader = -1;
       }
 
       $scope.restartTrack = function(index){
