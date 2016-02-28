@@ -365,8 +365,15 @@ Menu.setApplicationMenu(menu);
 
           for(var i=0;i<$scope.tracks.length;i++){
             if($scope.tracks[i].playing) {
-                $scope.tracks[i].player.nodes[4].output.gain.value = (parseInt($scope.masterVolume) / 100 * $scope.tracks[i].initVolumeMul);
-                $scope.tracks[i].playbackVolume = $scope.masterVolume;
+
+                //Making variables in relation to the master volume
+
+                $scope.tracks[i].player.nodes[4].output.gain.value = parseInt($scope.tracks[i].playbackVolume) / 100 * $scope.tracks[i].initVolumeMul * parseInt($scope.masterVolume) / 100;
+
+
+                console.log(parseInt($scope.tracks[i].playbackVolume));
+                console.log(parseInt($scope.masterVolume));
+                console.log($scope.tracks[i].player.nodes[4].output.gain.value);
             }
           }
       }
@@ -374,7 +381,12 @@ Menu.setApplicationMenu(menu);
       //Volume
       $scope.setTrackVolume = function(index) {
 
-          if($scope.tracks[index].playing) $scope.tracks[index].player.nodes[4].output.gain.value = (parseInt($scope.tracks[index].playbackVolume) / 100 * $scope.tracks[index].initVolumeMul);
+          //Making variables in relation to the master volume
+          if($scope.tracks[index].playing) $scope.tracks[index].player.nodes[4].output.gain.value = parseInt($scope.tracks[index].playbackVolume) / 100 * $scope.tracks[index].initVolumeMul * parseInt($scope.masterVolume) / 100;
+          console.log(parseInt($scope.tracks[index].playbackVolume));
+          console.log(parseInt($scope.masterVolume));
+          console.log($scope.tracks[index].player.nodes[4].output.gain.value);
+
       }
 
       //Speed

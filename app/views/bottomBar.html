@@ -18,7 +18,7 @@ One Shots -->
                   value = "100"
                   min="0"
                   max="100"
-                  ng-model="masterVolume"
+                  ng-model="$parent.masterVolume"
                   ng-change="setVolume()">
                   </input>
           </div>
@@ -30,7 +30,7 @@ One Shots -->
                   value = "100"
                   min="0"
                   max="200"
-                  ng-model="masterSpeed"
+                  ng-model="$parent.masterSpeed"
                   ng-change="setSpeed()">
                   </input>
           </div>
@@ -41,7 +41,7 @@ One Shots -->
                 <input type="range"
                 min="0"
                 max="100"
-                ng-model="masterDelay"
+                ng-model="$parent.masterDelay"
                 ng-change="setDelay()">
                 </input>
          </div>
@@ -52,7 +52,7 @@ One Shots -->
               <input type="range"
               min="0"
               max="100"
-              ng-model="masterReverb"
+              ng-model="$parent.masterReverb"
               ng-change="setReverb()">
               </input>
         </div>
@@ -63,7 +63,7 @@ One Shots -->
             <input type="range"
             min="0"
             max="4000"
-            ng-model="masterLowPass"
+            ng-model="$parent.masterLowPass"
             ng-change="setLowPass()">
             </input>
       </div>
@@ -74,7 +74,7 @@ One Shots -->
             <input type="range"
             min="0"
             max="16"
-            ng-model="masterBitCrush"
+            ng-model="$parent.masterBitCrush"
             ng-change="setBitCrush()">
             </input>
       </div>
