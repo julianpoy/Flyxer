@@ -238,10 +238,11 @@ $borderDividerWidth: 5px;
 
 .trackTutorial {
 
+	transition: color 0.5s ease-in-out;
+
 
 	&:hover {
 
-		margin-bottom: 10px;
 		color: $linkColor;
 		//text-decoration: underline;
 	}
