@@ -20,6 +20,9 @@
       $scope.directory = {};
       $scope.directoryRoot = "";
 
+      //Our default track height
+      var defaultTrackHeight = '150px';
+
       //Open a file
       $scope.openFile = function() {
           dialog.showOpenDialog({ properties: [ 'openFile' ]}, function(fileName) {
@@ -73,6 +76,9 @@
 
         //Also save the tracks volume here for the ng model slider
         $scope.tracks[$scope.tracks.length - 1].playbackVolume = 100;
+
+        //Also save the height of the track for preety animations
+        $scope.tracks[$scope.tracks.length - 1].cardHeight = {'height': defaultTrackHeight};
 
       }
 
@@ -146,17 +152,23 @@
 
       //Function to show individula track effects
       $scope.trackFader = -1;
-      $scope.toggleTrackFader = function(index) {
+      $scope.toggleTrackFader = function(show, index) {
 
-          if(index != undefined) {
+          if(show) {
 
               //Set the index to our scope variable to show ng-ifs
               $scope.trackFader = index;
+
+              //Also save the height of the track for preety animations
+              $scope.tracks[index].cardHeight = {'height': '300px'};
           }
           else {
 
               //Hide the faders
               $scope.trackFader = -1;
+
+              //Also save the height of the track for preety animations
+              $scope.tracks[index].cardHeight = {'height': defaultTrackHeight};
           }
       }
 

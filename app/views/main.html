@@ -81,14 +81,20 @@
 
               <div
               class = "card"
-              ng-mouseenter = "toggleTrackFader($index)"
-              ng-mouseleave = "toggleTrackFader()"
-              ng-class="{trackPlaying: track.playing}">
+              ng-mouseenter = "toggleTrackFader(true, $index)"
+              ng-mouseleave = "toggleTrackFader(false, $index)"
+              ng-class="{trackPlaying: track.playing}"
+              ng-style="track.cardHeight">
 
                   <h5 class = "trackTitle"
                   ng-click="toggleTrack($index)">
                       {{track.title}}
                   <h5>
+
+                  <h6
+                  ng-if="track.playing">
+                  Playing
+                  </h6>
 
                   <h6
                   ng-if="track.playing">

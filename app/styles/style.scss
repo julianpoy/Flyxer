@@ -115,6 +115,10 @@ html, body {
   margin: 0px 1rem 1rem;
   border-radius:3px;
 
+  //Nice little animation on when the card height changes
+  transition: height 0.55s ease-in-out;
+
+
   .trackTitle {
 
 	  word-wrap: break-word;
