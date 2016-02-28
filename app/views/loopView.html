@@ -75,8 +75,9 @@
                 </h6>
 
                 <div ng-if="trackFader == $index"
-                class = "ngFadeUpDown">
+                class = "ngFadeUpDown trackFaderContainer">
                     <h6>Track volume</h6>
+                    <h6>{{track.playbackVolume}}%</h6>
                       <input type="range"
                       value = "100"
                       min="0"
@@ -87,8 +88,9 @@
                 </div>
 
                 <div ng-if="trackFader == $index"
-                class = "ngFadeUpDown">
+                class = "ngFadeUpDown trackFaderContainer">
                     <h6>Playback Speed</h6>
+                    <h6>x{{track.playbackSpeed / 100}}</h6>
                       <input type="range"
                       value = "100"
                       min="0"

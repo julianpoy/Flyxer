@@ -395,15 +395,15 @@ Menu.setApplicationMenu(menu);
 
         for(var i=0;i<$scope.tracks.length;i++){
           if($scope.tracks[i].playing) {
-            $scope.tracks[i].player.soundSource.playbackRate.value = parseInt($scope.masterSpeed) / 100;
-            $scope.tracks[i].playbackSpeed = $scope.masterSpeed;
+
+            $scope.tracks[i].player.soundSource.playbackRate.value = parseInt($scope.masterSpeed) / 100 * parseInt($scope.tracks[i].playbackSpeed) / 100;
           }
         }
       }
 
       //Speed
       $scope.setTrackSpeed = function(index) {
-          if($scope.tracks[index].playing) $scope.tracks[index].player.soundSource.playbackRate.value = parseInt($scope.tracks[index].playbackSpeed) / 100;
+          if($scope.tracks[index].playing) $scope.tracks[index].player.soundSource.playbackRate.value = parseInt($scope.masterSpeed) / 100 * parseInt($scope.tracks[index].playbackSpeed) / 100;
       }
 
 
