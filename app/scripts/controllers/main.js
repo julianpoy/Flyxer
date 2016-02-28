@@ -51,7 +51,7 @@
         dialog.showOpenDialog({ properties: [ 'openDirectory' ]}, function(fileName) {
           $scope.directoryRoot = fileName[0];
           $scope.directory = dirTree.directoryTree(fileName[0]);
-          console.log($scope.directory);
+          //console.log($scope.directory);
           $scope.$apply();
           setTimeout(function(){
             $scope.$apply();
@@ -70,10 +70,15 @@
         fileName = $scope.directoryRoot + slash + fileName;
         var title = path.basename(fileName);
         $scope.tracks.push({"uri": fileName, "title": title, "playbackSpeed": 100});
+
+        //Also save the tracks volume here for the ng model slider
+        $scope.tracks[$scope.tracks.length - 1].playbackVolume = 100;
+
       }
 
       //Play/stop a track
       $scope.toggleTrack = function(index) {
+
           //Check if track is currently playing
           if($scope.tracks[index].playing){
             //Stop song playing
@@ -101,6 +106,15 @@
                       q         : 3,         // Q-factor.  No one knows what this does. The default value is 1. Sensible values are from 0 to 10.
                 }
             });
+
+            //Set the volume before playing
+            if(parseInt($scope.tracks[index].playbackVolume) == 0) $scope.tracks[index].playbackVolume = "1"
+
+            $scope.tracks[index].player.setVolume(parseInt($scope.tracks[index].playbackVolume) / 100);
+
+            //Also save an init volume multiplier
+            $scope.tracks[index].initVolumeMul = 100 / parseInt($scope.tracks[index].playbackVolume);
+
             $scope.tracks[index].player.play();
             $scope.tracks[index].currentTime = 0;
             $scope.tracks[index].playbackSpeed = 100;
@@ -134,11 +148,7 @@
       $scope.trackFader = -1;
       $scope.toggleTrackFader = function(index) {
 
-          console.log(index);
-
           if(index != undefined) {
-
-              console.log("Sup");
 
               //Set the index to our scope variable to show ng-ifs
               $scope.trackFader = index;
@@ -148,8 +158,6 @@
               //Hide the faders
               $scope.trackFader = -1;
           }
-
-          console.log("CURRENT: " + $scope.trackFader);
       }
 
       //Effects
@@ -159,7 +167,7 @@
 
           for(var i=0;i<$scope.tracks.length;i++){
             if($scope.tracks[i].playing) {
-                $scope.tracks[i].player.nodes[3].output.gain.value = (parseInt($scope.masterVolume) / 100);
+                $scope.tracks[i].player.nodes[3].output.gain.value = (parseInt($scope.masterVolume) / 100 * $scope.tracks[i].initVolumeMul);
                 $scope.tracks[i].playbackVolume = $scope.masterVolume;
             }
           }
@@ -167,7 +175,8 @@
 
       //Volume
       $scope.setTrackVolume = function(index) {
-          if($scope.tracks[index].playing) $scope.tracks[index].player.nodes[3].output.gain.value = (parseInt($scope.tracks[index].playbackVolume) / 100);
+
+          if($scope.tracks[index].playing) $scope.tracks[index].player.nodes[3].output.gain.value = (parseInt($scope.tracks[index].playbackVolume) / 100 * $scope.tracks[index].initVolumeMul);
       }
 
       //Speed
