@@ -1,105 +1,70 @@
-# Flyxer
+#[Flyxer](http://flyxer.kondeo.com/#/)
 
-(Work in progress, Readme shall be update with application)
-
-Last Update: 2/27/16 at 7:53AM During HackTech 2016.
-
-![Early Screenshot](http://i.imgur.com/DLZiZlq.png)
-
-##What Is Flyxer?
+##_"Music Mixing on the Fly"_
 Flyxer is a live performance music software made in [Electron](http://electron.atom.io/) and the [Electron Angular Boilerplate](https://github.com/Stephn-R/electron-angular-boilerplate). It will allow for loop switching "on the fly" with an easy to use interface. Along with a large collection of effects to play and edit your sound.
 
-##Installation (From the [Electron Angular Boilerplate](https://github.com/Stephn-R/electron-angular-boilerplate)):
+###Demo Tracks
 
-The application runs using Node 4.2.4. I recommend using [nvm](https://github.com/creationix/nvm) to manage your node versions. In addition, node-sass is required globally.
+The lovely demo tracks were composed by our awesome team member Alexis Luter, who is a member of the Bob Cole Conservatory Symphony.
 
-For development, run:
+#Usage
 
-```shell
-./scripts/load_globals.sh
-sudo npm install --python=python2.7
-npm start
-```
+###File Menu
 
-#### Known Bugs:
+![File Menu](http://flyxer.kondeo.com/images/tutorial-fileMenu.396f8b01.png)
 
-Node-sass may fail the `npm start` command. I recommend running the following command to fix this:
+The File Menu is where you will access audio files on your local machine.
 
-```
-npm i -g node-sass
-npm rebuild node-sass
-```
+To open a folder, click the "Open Folder" button placed near the top of
+the scrollable folder menu. Which will prompt a folder chooser dialog
+which you can then choose a folder containing your files
 
-##Team
-Currently our team contsits of Aaron Turner, @torch2424, and Julian Poyourow, @julianpoy
+Folders are displayed as: [Folder Name Here], and files are displayed
+by their file name.
+
+Click a folder to expand it and enter it's directory, and click a file to
+add it to the Loop View described below.
+
+###Loop View
+
+![Loop View](http://flyxer.kondeo.com/images/tutorial-loopView.01c73792.png)
+
+The Loop View is where audio files will be played, looped, and manipulated
+on an individual basis.
+
+Click the title of the audio to begin looping and set it to "Playing". Click
+the title again to stop it from playing and looping.
+
+While the track is playing, there will be a counter that displays the remaining
+time left before the audio loops.
+
+There are two sliders for individual track manipulation. Track Volume, and Playback Speed.
+
+Track volume will raise or lower the track's volume as the slider increases and decreses.
+And the Playback Speed will increase or decrease as the Slider increases or decreases.
+
+###Master Effects
+
+![Loop View](http://flyxer.kondeo.com/images/tutorial-masterEffects.429698b3.png)
+
+The Master Effects are a collections of sliders that will manipulate the audio
+of ALL playing audio tracks
+
+"Volume" will manipulate the overall volume of all audio playing.
+
+"Playback Speed" will manipulate the overall speed of all audio playing.
+
+"Delay" will add a delay effect to all audio playing.
+
+"Reverb" will add reverberation to all audio currently playing.
+
+"Lowpass Filter" will manipulate the frequency of the Low Pass filter that is applied to
+all audio playing.
+
+"BitCrusher" will manipulate the amount of data points in the audio being played
+to distort the audio and give a "retro" feel.
+
 
 ## License
 
 Licensed under the [Apache License 2.0](http://choosealicense.com/licenses/apache-2.0/)
-
-###Random Wad fixes to do
-
-This is more a hackathon note to self. After this is over, should definitely make some pull request.
-
-- Fix tuna in wad. Add the window.tuna check
-````javascript
-var setUpTunaOnPlay = function(that, arg){
-    if ( !( that.tuna || arg.tuna ) ) { return }
-    var tunaConfig = {}
-    if ( that.tuna ) {
-        for ( var key in that.tuna ) {
-            tunaConfig[key] = that.tuna[key]
-        }
-    }
-
-    // overwrite settings from `this` with settings from arg
-    if ( arg.tuna ) {
-        for ( var key in arg.tuna ) {
-            tunaConfig[key] = arg.tuna[key]
-        }
-    }
-    console.log('tunaconfig: ', tunaConfig);
-
-    //Try to set our tuna again
-    if ( Wad.tuna == undefined &&
-        window.Tuna != undefined ) {
-        Wad.tuna = new Tuna(Wad.audioContext)
-    }
-
-
-    for ( var key in tunaConfig) {
-        console.log(key);
-        var tunaEffect = new Wad.tuna[key](tunaConfig[key]);
-        that.nodes.push(tunaEffect)
-    }
-    // console.log(that.nodes)
-}
-````
-
-- Add additonal effects to be manipulated live (Example with delay, can be done with all effects)
-````javascript
-
-//Delay
-$scope.masterDelay = 0;
-$scope.setDelay = function() {
-
-    var time = 1.5;
-    var delay = parseInt($scope.masterDelay) / 100;
-
-    for(var i=0;i<$scope.tracks.length;i++){
-      if($scope.tracks[i].playing){
-        //Set the value
-        $scope.tracks[i].player.delay.delayTime = time;
-        $scope.tracks[i].player.delay.wet = delay;
-        $scope.tracks[i].player.delay.feedback = delay;
-
-        //Set the node's value
-        $scope.tracks[i].player.delay.delayNode.delayNode.delayTime.value = time;
-
-        $scope.tracks[i].player.delay.delayNode.feedbackNode.gain.value = delay;
-        $scope.tracks[i].player.delay.delayNode.wetNode.gain.value = delay;
-      }
-    }
-}
-
-````
