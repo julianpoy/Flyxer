@@ -290,7 +290,7 @@ Menu.setApplicationMenu(menu);
                         bits: 16,          //1 to 16
                         normfreq: 1,    //0 to 1
                         bufferSize: 4096  //256 to 16384
-                    },
+                    }
                 }
             });
 
@@ -365,7 +365,7 @@ Menu.setApplicationMenu(menu);
 
           for(var i=0;i<$scope.tracks.length;i++){
             if($scope.tracks[i].playing) {
-                $scope.tracks[i].player.nodes[3].output.gain.value = (parseInt($scope.masterVolume) / 100 * $scope.tracks[i].initVolumeMul);
+                $scope.tracks[i].player.nodes[4].output.gain.value = (parseInt($scope.masterVolume) / 100 * $scope.tracks[i].initVolumeMul);
                 $scope.tracks[i].playbackVolume = $scope.masterVolume;
             }
           }
@@ -448,7 +448,7 @@ Menu.setApplicationMenu(menu);
         }
       }
 
-      //Overdrive
+      //BitCrushing
       $scope.masterBitCrush = 16;
       $scope.setBitCrush = function() {
           for(var i=0;i<$scope.tracks.length;i++){
