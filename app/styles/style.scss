@@ -7,6 +7,7 @@
 @import 'colors';
 @import 'headers';
 @import 'range';
+@import 'scrollbars';
 @import 'animate';
 @import 'ngAnimate';
 
@@ -20,7 +21,10 @@ html, body {
 }
 
 //Variable for our folder view width
-$folderViewWidth: 300px;
+$folderViewWidth: 275px;
+
+//Our border Width
+$borderDividerWidth: 5px;
 
 //The Center class in the flesh
 .center {
@@ -82,6 +86,15 @@ $folderViewWidth: 300px;
 
 	transition: margin-left 0.5s, color 0.5s;
 
+	font-size: 14px;
+	font-weight: bold;
+
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: $dark;
+	border-bottom-style: inset;
+	border-radius: 0px;
+
 	&:hover {
 
 		margin-left: 5px;
@@ -90,6 +103,9 @@ $folderViewWidth: 300px;
 }
 
 #directoryTreeContainer {
+
+	@extend .scrollbar;
+
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -98,6 +114,13 @@ $folderViewWidth: 300px;
 	overflow: auto;
 	background-color: $dirTreeBg;
 	padding: 15px;
+
+	z-index: 5;
+
+	border-right-style: solid;
+	border-right-width: $borderDividerWidth;
+	border-right-color: $dark;
+	border-right-style: inset;
 
 	.fileTitle {
 
@@ -111,11 +134,26 @@ $folderViewWidth: 300px;
 
 	.openFolder {
 
+		height: 55px;
 		margin-left: 20px;
+
+		background-color: $light;
+        padding-bottom: 0px;
+        transition: box-shadow 0.5s ease-in-out, padding-bottom 0.5s ease-in-out;
+        box-shadow: 0px 2px 5px 0px $dark;
+
+        &:hover {
+
+            background-color: $cardBg;
+            box-shadow: none;
+            padding-bottom: 5px;
+        }
 	}
 }
 
 #bottomBar {
+
+	@extend .scrollbar;
 
 	position: absolute;
 	bottom: 0px;
@@ -127,10 +165,15 @@ $folderViewWidth: 300px;
 	padding: 15px;
 	color: $dark;
 
+	border-top-style: solid;
+	border-top-width: $borderDividerWidth;
+	border-top-color: $dark;
+
 	.effectsContainer {
 
-		width: 60%;
+		width: calc(60% - 15px);
 		float: left;
+		margin-left: 15px;
 
 		border-right-color: $dark;
 		border-right-style: solid;
@@ -140,6 +183,7 @@ $folderViewWidth: 300px;
 			width: 100%;
 			margin-right: auto;
 			text-align: center;
+			font-weight: bold;
 		}
 
 
@@ -185,6 +229,7 @@ $folderViewWidth: 300px;
 			width: 100%;
 			margin-right: auto;
 			text-align: center;
+			font-weight: bold;
 		}
 	}
 
@@ -198,25 +243,33 @@ $folderViewWidth: 300px;
 	top: 0px;
 	position: absolute;
 	overflow: auto;
-	background-color: $light;
+	background-color: $loopBg;
 	padding: 15px;
 }
 
 .trackTutorial {
 
+	transition: color 0.5s ease-in-out;
+
 
 	&:hover {
 
-		margin-bottom: 10px;
 		color: $linkColor;
 		//text-decoration: underline;
+	}
+}
+
+.trackFaderContainer {
+
+	h6 {
+		margin-bottom: 5px;
 	}
 }
 
 .card {
 
   padding: 15px;
-  box-shadow: 0px 2px 10px 1px $dark;
+  box-shadow: 0px 1px 7px 1px $dark;
   background-color: $cardBg;
   margin: 0px 1rem 1rem;
   border-radius:3px;
@@ -260,7 +313,7 @@ $folderViewWidth: 300px;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: center;
 
 	margin-top: 10px;
 }

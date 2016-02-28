@@ -1,0 +1,103 @@
+
+
+<!-- Intro -->
+<h1 class = "center flyxerTitle">Flyxer</h1>
+<h3 class = "center tagLine">"Music Mixing on the Fly"</h3>
+<h6 class = "center tagLine">Tutorial</h6>
+
+<hr />
+
+<!-- File Menu -->
+<h3 class = "center">File Menu</h3>
+
+<div class = "headerImageContainer">
+    <img src = "../images/tutorial-fileMenu.png"
+    alt = "File Menu Screenshot"
+    class = "center">
+</div>
+
+<p>
+    The File Menu is where you will access audio files on your local machine.
+
+    To open a folder, click the "Open Folder" button placed near the top of
+    the scrollable folder menu. Which will prompt a folder chooser dialog
+    which you can then choose a folder containing your files
+
+    Folders are displayed as: << [Folder Name Here] >>, and files are displayed
+    by their file name.
+
+    Click a folder to expand it and enter it's directory, and click a file to
+    add it to the Loop View described below.
+
+    NOTE: You may only go three directories deep into a folder structure at a
+    time before the app will no longer display inner directory files.
+</p>
+
+<hr />
+
+<!-- Loop View -->
+<h3 class = "center">Loop View</h3>
+
+<div class = "headerImageContainer">
+    <img src = "../images/tutorial-loopView.png"
+    alt = "File Menu Screenshot"
+    class = "center">
+</div>
+
+<p>
+    The Loop View is where audio files will be played, looped, and manipulated
+    on an individual basis.
+
+    Click the title of the audio to begin looping and set it to "Playing". Click
+    the title again to stop it from playing and looping.
+
+    While the track is playing, there will be a counter that displays the remaining
+    time left before the audio loops.
+
+    There are two sliders for individual track manipulation. Track Volume, and Playback Speed.
+
+    Track volume will raise or lower the track's volume as the slider increases and decreses.
+    And the Playback Speed will increase or decrease as the Slider increases or decreases.
+</p>
+
+<hr />
+
+<!-- Loop View -->
+<h3 class = "center">Master Effects</h3>
+
+<div class = "headerImageContainer">
+    <img src = "../images/tutorial-masterEffects.png"
+    alt = "File Menu Screenshot"
+    class = "center">
+</div>
+
+<p>
+    The Master Effects are a collections of sliders that will manipulate the audio
+    of ALL playing audio tracks
+
+    "Volume" will manipulate the overall volume of all audio playing.
+
+    "Playback Speed" will manipulate the overall speed of all audio playing.
+
+    "Delay" will add a delay effect to all audio playing.
+
+    "Reverb" will add reverberation to all audio currently playing.
+
+    "Lowpass Filter" will manipulate the frequency of the Low Pass filter that is applied to
+    all audio playing.
+
+    NOTE: Currently Volume And Playback Speed will affect the individual audio volume
+    as well as the master volume, so this should be used only when one audio loop is being
+    played. To avoid any mistakes or confusion.
+</p>
+
+<hr />
+
+<h5 class = "center tagLine">This tutorial can be accessed at any time,
+    by using the top-most file menu. By clicking "Help" > "Show Tutorial"
+</h5>
+
+<button class = "okayButton"
+ng-click = "setTutorial(False)">
+    Sounds Good!
+</button>
