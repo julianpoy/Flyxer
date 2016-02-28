@@ -35,7 +35,7 @@
         });
       }
 
-      $scope.addFile = function(fileName){
+      $scope.addTrack = function(fileName){
         var forwardSlash = $scope.directoryRoot.match(/\//g);
         var slash;
         if(forwardSlash){
