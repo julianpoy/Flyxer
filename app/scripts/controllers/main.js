@@ -191,7 +191,7 @@ Menu.setApplicationMenu(menu);
       $scope.directoryRoot = "";
 
       //Our default track height
-      var defaultTrackHeight = '150px';
+      var defaultTrackHeight = 115;
 
       //Check if the user has used the app before
       var hasUsed = localStorage.getItem("tutorial");
@@ -252,11 +252,14 @@ Menu.setApplicationMenu(menu);
         var title = path.basename(fileName);
         $scope.tracks.push({"uri": fileName, "title": title, "playbackSpeed": 100});
 
+        //Set playing to false
+        $scope.tracks[$scope.tracks.length - 1].playing = false;
+
         //Also save the tracks volume here for the ng model slider
         $scope.tracks[$scope.tracks.length - 1].playbackVolume = 100;
 
         //Also save the height of the track for preety animations
-        $scope.tracks[$scope.tracks.length - 1].cardHeight = {'height': defaultTrackHeight};
+        $scope.tracks[$scope.tracks.length - 1].cardHeight = {'height': defaultTrackHeight + 'px'};
 
       }
 
@@ -269,6 +272,9 @@ Menu.setApplicationMenu(menu);
             $scope.tracks[index].player.stop();
             $scope.tracks[index].playing = false;
             $scope.tracks[index].player = null;
+
+            //Also shorten it's view
+            $scope.toggleTrackFader(false, index);
           } else {
             $scope.tracks[index].player = new Wad({
                 source : 'file://' + $scope.tracks[index].uri,
@@ -303,6 +309,9 @@ Menu.setApplicationMenu(menu);
             $scope.tracks[index].currentTime = 0;
             $scope.tracks[index].playbackSpeed = 100;
             $scope.tracks[index].playing = true;
+
+            //Also expand it's view
+            $scope.toggleTrackFader(true, index);
           }
       }
 
@@ -338,7 +347,8 @@ Menu.setApplicationMenu(menu);
               $scope.trackFader = index;
 
               //Also save the height of the track for preety animations
-              $scope.tracks[index].cardHeight = {'height': '375px'};
+              if($scope.tracks[index].playing) $scope.tracks[index].cardHeight = {'height': (defaultTrackHeight + 250) + 'px'};
+              else $scope.tracks[index].cardHeight = {'height': (defaultTrackHeight + 160) + 'px'};
           }
           else {
 
@@ -346,7 +356,8 @@ Menu.setApplicationMenu(menu);
               $scope.trackFader = -1;
 
               //Also save the height of the track for preety animations
-              $scope.tracks[index].cardHeight = {'height': defaultTrackHeight};
+              if($scope.tracks[index].playing) $scope.tracks[index].cardHeight = {'height': (defaultTrackHeight + 90) + 'px'};
+              else $scope.tracks[index].cardHeight = {'height': (defaultTrackHeight) + 'px'};
           }
       }
 
