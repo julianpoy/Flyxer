@@ -38,6 +38,22 @@
     }
 
     &.ng-leave {
+
+        -webkit-animation-duration: 0s;
+        animation-duration: 0s;
+    }
+
+}
+
+.ngFadeTracksTitle {
+
+    @extend .crazyAnimated;
+
+    &.ng-enter {
+        @extend .fadeInUp;
+    }
+
+    &.ng-leave {
         
         -webkit-animation-duration: 0s;
         animation-duration: 0s;
