@@ -13,7 +13,7 @@ require('crash-reporter').start();
 
 var mainWindow = null;
 var options = {
-	"debug": false,
+	"debug": true,
 	"version": "1.0.0",
 	"views_dir": "dist/views",
 	"root_view": "main.html"
