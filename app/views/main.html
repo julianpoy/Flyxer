@@ -91,7 +91,8 @@
 
                   <h5 class = "trackTitle"
                   ng-click="toggleTrack($index)">
-                      {{track.title}}
+                      <img class="icon" src="../images/play.png" ng-if="!track.playing" />
+                      <img class="icon" src="../images/pause.png" ng-if="track.playing" /> {{track.title}}
                   <h5>
 
                   <h6
