@@ -140,8 +140,8 @@
             $scope.tracks[i].timeRemaining = Math.round(remainingTime);
             $scope.tracks[i].currentTime =  Math.round(current);
           } else {
-            $scope.tracks[i].timeRemaining = total;
-            $scope.tracks[i].currentTime =  $scope.tracks[i].playbackSpeed;
+            $scope.tracks[i].timeRemaining = Math.round(total);
+            $scope.tracks[i].currentTime =  $scope.tracks[i].playbackSpeed/100;
           }
         }
         setTimeout(function(){
