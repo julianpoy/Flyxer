@@ -77,6 +77,8 @@
 
           <div id="loopsContainer">
 
+              <h1 class = "center">Loop View</h1>
+
             <div class = "trackFlex">
 
                 <div ng-repeat="track in tracks"
@@ -132,68 +134,79 @@
 
 
           <!-- Our effects -->
-          <div id="effectsContainer">
+          <div class = "bottomBar">
 
-              <div class = "sliderFlex">
+              <div class="effectsContainer">
+
+                  <h1 class = "effectsTitle">Master Effects</h1>
+
+                  <div class = "sliderFlex">
+
+                      <div class = "flexItem">
+                          <h5>Volume</h5>
+                          <h6>{{masterVolume}}</h6>
+                            <input type="range"
+                            value = "100"
+                            min="0"
+                            max="100"
+                            ng-model="masterVolume"
+                            ng-change="setVolume()">
+                            </input>
+                    </div>
+
+                      <div class = "flexItem">
+                          <h5>Playback Speed</h5>
+                          <h6>x{{masterSpeed / 100}}</h6>
+                            <input type="range"
+                            value = "100"
+                            min="0"
+                            max="200"
+                            ng-model="masterSpeed"
+                            ng-change="setSpeed()">
+                            </input>
+                    </div>
+
+                    <div class = "flexItem">
+                        <h5>Delay</h5>
+                        <h6>Gain: {{masterDelay}}</h6>
+                          <input type="range"
+                          min="0"
+                          max="100"
+                          ng-model="masterDelay"
+                          ng-change="setDelay()">
+                          </input>
+                   </div>
 
                   <div class = "flexItem">
-                      <h5>Master Volume</h5>
-                      <h6>{{masterVolume}}</h6>
+                      <h5>Reverb</h5>
+                      <h6>Gain: {{masterReverb}}</h6>
                         <input type="range"
-                        value = "100"
                         min="0"
                         max="100"
-                        ng-model="masterVolume"
-                        ng-change="setVolume()">
+                        ng-model="masterReverb"
+                        ng-change="setReverb()">
                         </input>
-                </div>
-
-                  <div class = "flexItem">
-                      <h5>Playback Speed</h5>
-                      <h6>x{{masterSpeed / 100}}</h6>
-                        <input type="range"
-                        value = "100"
-                        min="0"
-                        max="200"
-                        ng-model="masterSpeed"
-                        ng-change="setSpeed()">
-                        </input>
-                </div>
+                  </div>
 
                 <div class = "flexItem">
-                    <h5>Delay</h5>
-                    <h6>Gain: {{masterDelay}}</h6>
+                    <h5>Lowpass Filter</h5>
+                    <h6>Frequency: {{masterLowPass}}</h6>
                       <input type="range"
                       min="0"
-                      max="100"
-                      ng-model="masterDelay"
-                      ng-change="setDelay()">
+                      max="4000"
+                      ng-model="masterLowPass"
+                      ng-change="setLowPass()">
                       </input>
-               </div>
+                </div>
 
-              <div class = "flexItem">
-                  <h5>Reverb</h5>
-                  <h6>Gain: {{masterReverb}}</h6>
-                    <input type="range"
-                    min="0"
-                    max="100"
-                    ng-model="masterReverb"
-                    ng-change="setReverb()">
-                    </input>
+                </div>
+
               </div>
 
-            <div class = "flexItem">
-                <h5>Lowpass Filter</h5>
-                <h6>Frequency: {{masterLowPass}}</h6>
-                  <input type="range"
-                  min="0"
-                  max="4000"
-                  ng-model="masterLowPass"
-                  ng-change="setLowPass()">
-                  </input>
-            </div>
+              <div class = "oneShotContainer">
 
-            </div>
+                   <h1 class = "oneShotTitle">One Shots</h1>
+              </div>
 
           </div>
     </div>

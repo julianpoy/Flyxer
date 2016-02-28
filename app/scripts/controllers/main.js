@@ -261,6 +261,8 @@ Menu.setApplicationMenu(menu);
         //Also save the height of the track for preety animations
         $scope.tracks[$scope.tracks.length - 1].cardHeight = {'height': defaultTrackHeight + 'px'};
 
+        console.log(document.getElementById("trackTitle-" + index).style.height);
+
       }
 
       //Play/stop a track
