@@ -1,8 +1,11 @@
 #[Flyxer](http://flyxer.kondeo.com/#/)
 
 #This project was created at HackTech2016. It is no longer being actively developed.
+
 Instead, we are working on bringing a fully-fleged music performance software to your very doorstep. To support full-time development, we have to charge for our work. We want to keep the software accessible to all, so we've chosen to charge only $20 per copy.
+
 When the software is released, you will be able to find it at http://flyxer.kondeo.com. Until then, please enjoy this free version!
+
 This repository will stay free, although it will no longer be updated. Feel free to fork this project and make your own tweaks. There are some known bugs lurking here and there that you may need to fix.
 
 ##_"Music Mixing on the Fly"_
