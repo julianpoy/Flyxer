@@ -1,19 +1,19 @@
-#[Flyxer](http://flyxer.kondeo.com/#/)
+# [Flyxer](http://flyxer.kondeo.com/#/)
 
-#This project was created at HackTech2016. It is no longer being actively developed.
+# This project was created at HackTech2016. It is no longer being actively developed.
 
 Feel free to fork this project and make your own tweaks. There are some known bugs lurking here and there that you may need to fix.
 
-##_"Music Mixing on the Fly"_
+## _"Music Mixing on the Fly"_
 Flyxer is a live performance music software made in [Electron](http://electron.atom.io/) and the [Electron Angular Boilerplate](https://github.com/Stephn-R/electron-angular-boilerplate). It will allow for loop switching "on the fly" with an easy to use interface. Along with a large collection of effects to play and edit your sound.
 
-###Demo Tracks
+### Demo Tracks
 
 The lovely demo tracks were composed by our awesome team member Alexis Luter, who is a member of the Bob Cole Conservatory Symphony.
 
-#Usage
+# Usage
 
-###File Menu
+### File Menu
 
 ![File Menu](http://flyxer.kondeo.com/images/tutorial-fileMenu.396f8b01.png)
 
@@ -29,7 +29,7 @@ by their file name.
 Click a folder to expand it and enter it's directory, and click a file to
 add it to the Loop View described below.
 
-###Loop View
+### Loop View
 
 ![Loop View](http://flyxer.kondeo.com/images/tutorial-loopView.01c73792.png)
 
@@ -47,7 +47,7 @@ There are two sliders for individual track manipulation. Track Volume, and Playb
 Track volume will raise or lower the track's volume as the slider increases and decreses.
 And the Playback Speed will increase or decrease as the Slider increases or decreases.
 
-###Master Effects
+### Master Effects
 
 ![Loop View](http://flyxer.kondeo.com/images/tutorial-masterEffects.429698b3.png)
 
